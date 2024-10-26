@@ -1,7 +1,6 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { SalaEntity } from "./sala.entity";
 import { UsuarioEntity } from "./usuario.entity";
-import { Delete } from "@nestjs/common";
 
 @Entity({ name: 'reservas' })
 export class ReservaEntity {
@@ -9,10 +8,16 @@ export class ReservaEntity {
     @PrimaryGeneratedColumn('identity')
     id:number;
 
-    @Column({ name: '' })
+    @ManyToOne(() => UsuarioEntity)
     usuario:UsuarioEntity;
+    
+    @ManyToOne(() => SalaEntity)
     sala:SalaEntity;
+
+    @Column({ name: 'data_hora_inicio', nullable: false })
     dataHoraInicio:Date;
+
+    @Column({ name: 'data_hora_termino', nullable: false })
     dataHoraTermino:Date;
 
     @CreateDateColumn({ name: 'created_at' })
