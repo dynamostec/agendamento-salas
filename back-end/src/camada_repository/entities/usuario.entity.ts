@@ -1,5 +1,6 @@
+
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { TipoUsuario } from './../../camada_domain/tipo.usuario';
+import { TipoUsuario } from 'src/camada_domain/tipoUsario';
 
 @Entity({ name: 'usuarios' })
 export class UsuarioEntity {
