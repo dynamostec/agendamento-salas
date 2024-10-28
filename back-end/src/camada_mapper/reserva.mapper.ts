@@ -1,3 +1,4 @@
+import { Reserva } from 'src/camada_domain/reserva';
 import { SalaMapper } from './sala.mapper';
 import { UsuarioMapper } from './usuario.mapper';
 import { ReservaEntity } from "src/camada_repository/entities/reserva.entity";
@@ -25,7 +26,7 @@ export class ReservaMapper {
     }
 
     paraEntity(domain: Reserva): ReservaEntity {
-        return Reserva(
+        return new ReservaEntity(
             domain.id, 
             this.usuarioMapper.paraEntity(domain.usuario),
             this.salaMapper.paraEntity(domain.sala),
@@ -35,7 +36,7 @@ export class ReservaMapper {
     }
 
     paraDto(domain: Reserva): ReservaDto {
-        return ReservaDto (
+        return new ReservaDto (
             domain.id, 
             this.usuarioMapper.paraDto(domain.usuario),
             this.salaMapper.paraDto(domain.sala),

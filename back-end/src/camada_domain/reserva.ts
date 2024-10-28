@@ -7,19 +7,19 @@ export class Reserva {
         id: number,
         usuario: Usuario,
         sala: Sala,
-        dataHoraInicial: Date,
+        dataHoraInicio: Date,
         dataHoraTermino: Date
     ) {
         this.id = id;
         this.usuario = usuario;
         this.sala = sala;
-        this.dataHoraInicial = dataHoraInicial;
+        this.dataHoraInicio = dataHoraInicio;
         this.dataHoraTermino = dataHoraTermino;
     }
 
     id: number;
     usuario: Usuario;
     sala: Sala;
-    dataHoraInicial: Date;
+    dataHoraInicio: Date;
     dataHoraTermino: Date;
 }

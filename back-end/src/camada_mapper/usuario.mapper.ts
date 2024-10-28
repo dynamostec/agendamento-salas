@@ -1,3 +1,4 @@
+import { Usuario } from "src/camada_domain/usuario";
 import { UsuarioEntity } from "src/camada_repository/entities/usuario.entity";
 
 export class UsuarioMapper {
@@ -33,7 +34,7 @@ export class UsuarioMapper {
     }
 
     paraDomainDeDto(dto: UsuarioDto): Usuario {
-        return Usuario(
+        return new Usuario(
             dto.id, 
             dto.nome, 
             dto.email, 

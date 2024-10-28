@@ -21,10 +21,10 @@ export class Sala {
     }
 
     id: number;
-    nome: String;
+    nome: string;
     capacidade: number;
     localizacao: Endereco;
     usuarioAdministrador: Usuario;
-    descricao: String;
+    descricao: string;
 }
 
