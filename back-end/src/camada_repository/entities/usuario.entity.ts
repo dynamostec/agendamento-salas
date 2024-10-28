@@ -22,7 +22,7 @@ export class UsuarioEntity {
         enum: TipoUsuario,
         default: TipoUsuario.USER
     })
-    TipoUsuario: TipoUsuario;
+    tipoUsuario: TipoUsuario;
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: string;
