@@ -2,13 +2,13 @@
 export class LoginDto {
     
     constructor(
-        email: String,
-        senha: String
+        email: string,
+        senha: string
     ){
-        this.email=email,
-        this.senha=senha
+        this.email=email;
+        this.senha=senha;
     }
 
-    email: String;
-    senha: String;
+    email: string;
+    senha: string;
 }

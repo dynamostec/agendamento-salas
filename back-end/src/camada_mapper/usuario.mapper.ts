@@ -1,3 +1,4 @@
+import { UsuarioDto } from "src/camada_controller/dto/usuarioDto";
 import { Usuario } from "src/camada_domain/usuario";
 import { UsuarioEntity } from "src/camada_repository/entities/usuario.entity";
 

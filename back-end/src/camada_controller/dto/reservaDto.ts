@@ -10,11 +10,11 @@ export class ReservaDto {
         dataHoraInicio: Date,
         dataHoraTermino: Date,
     ){
-        this.id= id,
-        this.usuario=usuario,
-        this.sala= sala,
-        this.dataHoraInicio= dataHoraInicio,
-        this.dataHoraTermino= dataHoraTermino
+        this.id= id;
+        this.usuario=usuario;
+        this.sala= sala;
+        this.dataHoraInicio= dataHoraInicio;
+        this.dataHoraTermino= dataHoraTermino;
     }
 
     id: number;

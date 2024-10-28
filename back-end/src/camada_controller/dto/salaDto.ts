@@ -1,24 +1,28 @@
 import { EnderecoDto } from "./enderecoDto";
+import { UsuarioDto } from "./usuarioDto";
 
 export class SalaDto {
 
     constructor(
         id: number,
-        nome: String,
+        nome: string,
         capacidade: number,
+        usuarioAdministrador: UsuarioDto,
         localizacao: EnderecoDto,
-        descricao: String
+        descricao: string
     ){
-        this.id=id,
-        this.nome=nome,
-        this.capacidade=capacidade,
-        this.localizacao=localizacao,
-        this.descricao=descricao
+        this.id=id;
+        this.nome=nome;
+        this.capacidade=capacidade;
+        this.usuarioAdministrador = usuarioAdministrador;
+        this.localizacao=localizacao;
+        this.descricao=descricao;
     }
 
     id: number;
-    nome: String;
+    nome: string;
     capacidade: number;
+    usuarioAdministrador: UsuarioDto;
     localizacao: EnderecoDto;
-    descricao: String;
+    descricao: string;
 }

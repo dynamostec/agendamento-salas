@@ -2,6 +2,7 @@ import { SalaEntity } from "src/camada_repository/entities/sala.entity";
 import { UsuarioEntity } from "src/camada_repository/entities/usuario.entity";
 import { UsuarioMapper } from "./usuario.mapper";
 import { Sala } from "src/camada_domain/sala";
+import { SalaDto } from "src/camada_controller/dto/salaDto";
 
 export class SalaMapper {
 
@@ -38,8 +39,8 @@ export class SalaMapper {
             domain.id, 
             domain.nome, 
             domain.capacidade, 
-            domain.localizacao, 
             this.usuariomapper.paraDto(domain.usuarioAdministrador),
+            domain.localizacao, 
             domain.descricao
         );
     }
