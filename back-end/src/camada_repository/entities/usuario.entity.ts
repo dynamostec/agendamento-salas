@@ -4,6 +4,20 @@ import { TipoUsuario } from './../../camada_domain/tipo.usuario';
 @Entity({ name: 'usuarios' })
 export class UsuarioEntity {
 
+    constructor(
+        id: number,
+        nome: string,
+        email: string,
+        senha: string,
+        tipoUsuario: TipoUsuario
+    ) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.tipoUsuario = tipoUsuario;
+    }
+
     @PrimaryGeneratedColumn('identity')
     id: number;
 
@@ -22,7 +36,7 @@ export class UsuarioEntity {
         enum: TipoUsuario,
         default: TipoUsuario.USER
     })
-    TipoUsuario: TipoUsuario;
+    tipoUsuario: TipoUsuario;
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: string;
