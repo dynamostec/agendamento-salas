@@ -5,6 +5,22 @@ import { UsuarioEntity } from "./usuario.entity";
 @Entity({ name: 'salas' })
 export class SalaEntity {
 
+    constructor(
+        id: number,
+        nome: string,
+        capacidade: number,
+        localizacao: Endereco,
+        usuarioAdministrador: UsuarioEntity,
+        descricao: string
+    ) {
+        this.id = id;
+        this.nome = nome;
+        this.capacidade = capacidade;
+        this.localizacao = localizacao;
+        this.usuarioAdministrador = usuarioAdministrador;
+        this.descricao = descricao;
+    }
+
     @PrimaryGeneratedColumn('identity')
     id: number;
 

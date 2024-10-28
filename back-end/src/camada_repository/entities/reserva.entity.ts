@@ -5,6 +5,20 @@ import { UsuarioEntity } from "./usuario.entity";
 @Entity({ name: 'reservas' })
 export class ReservaEntity {
 
+    constructor(
+        id: number, 
+        usuario: UsuarioEntity,
+        sala: SalaEntity,
+        dataHoraInicio: Date,
+        dataHoraTermino: Date
+    ) {
+        this.id = id;
+        this.usuario = usuario;
+        this.sala = sala;
+        this.dataHoraInicio = dataHoraInicio;
+        this.dataHoraTermino = dataHoraTermino;
+    }
+
     @PrimaryGeneratedColumn('identity')
     id:number;
 
