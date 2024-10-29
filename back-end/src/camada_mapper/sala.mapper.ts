@@ -23,40 +23,40 @@ export class SalaMapper {
         return entities.map(entity => this.paraDomain(entity));
     }
 
-    paraEntity(domain: Sala): SalaEntity {
+    static paraEntity(domain: Sala): SalaEntity {
         return new SalaEntity(
             domain.id, 
             domain.nome, 
             domain.capacidade, 
             domain.localizacao, 
-            this.usuariomapper.paraEntity(domain.usuarioAdministrador),
+            UsuarioMapper.paraEntity(domain.usuarioAdministrador),
             domain.descricao
         );
     }
 
-    paraDto(domain: Sala): SalaDto {
+    static paraDto(domain: Sala): SalaDto {
         return new SalaDto(
             domain.id, 
             domain.nome, 
             domain.capacidade, 
-            this.usuariomapper.paraDto(domain.usuarioAdministrador),
+            UsuarioMapper.paraDto(domain.usuarioAdministrador),
             domain.localizacao, 
             domain.descricao
         );
     }
     
     
-    paraDtos(domains: Array<Sala>): Array<SalaDto> {
+    static paraDtos(domains: Array<Sala>): Array<SalaDto> {
         return domains.map(domain => this.paraDto(domain));
     }
 
-    paraDomainDeDto(dto: SalaDto): Sala {
+    static paraDomainDeDto(dto: SalaDto): Sala {
         return new Sala(
             dto.id, 
             dto.nome, 
             dto.capacidade, 
             dto.localizacao, 
-            this.usuariomapper.paraDomainDeDto(dto.usuarioAdministrador),
+            UsuarioMapper.paraDomainDeDto(dto.usuarioAdministrador),
             dto.descricao
         );
     }

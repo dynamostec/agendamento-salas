@@ -14,7 +14,7 @@ export class UsuarioMapper {
         );
     }
 
-    paraEntity(domain: Usuario): UsuarioEntity {
+    static paraEntity(domain: Usuario): UsuarioEntity {
         return new UsuarioEntity(
             domain.id, 
             domain.nome, 
@@ -24,7 +24,7 @@ export class UsuarioMapper {
         );
     }
 
-    paraDto(domain: Usuario): UsuarioDto {
+    static paraDto(domain: Usuario): UsuarioDto {
         return new UsuarioDto(
             domain.id, 
             domain.nome, 
@@ -34,7 +34,7 @@ export class UsuarioMapper {
         );
     }
 
-    paraDomainDeDto(dto: UsuarioDto): Usuario {
+    static paraDomainDeDto(dto: UsuarioDto): Usuario {
         return new Usuario(
             dto.id, 
             dto.nome, 
