@@ -12,50 +12,50 @@ export class ReservaMapper {
     ){}
 
 
-    paraDomain(entity: ReservaEntity): Reserva {
+    static paraDomain(entity: ReservaEntity): Reserva {
         return new Reserva(
             entity.id, 
-            this.usuarioMapper.paraDomain(entity.usuario), 
-            this.salaMapper.paraDomain(entity.sala),
+            UsuarioMapper.paraDomain(entity.usuario), 
+            SalaMapper.paraDomain(entity.sala),
             entity.dataHoraInicio,
             entity.dataHoraTermino
         );
     }
 
-    paraDomains(entities: Array<ReservaEntity>): Array<Reserva> {
+    static paraDomains(entities: Array<ReservaEntity>): Array<Reserva> {
         return entities.map(entity => this.paraDomain(entity));
     }
 
-    paraEntity(domain: Reserva): ReservaEntity {
+    static paraEntity(domain: Reserva): ReservaEntity {
         return new ReservaEntity(
             domain.id, 
-            this.usuarioMapper.paraEntity(domain.usuario),
-            this.salaMapper.paraEntity(domain.sala),
+            UsuarioMapper.paraEntity(domain.usuario),
+            SalaMapper.paraEntity(domain.sala),
             domain.dataHoraInicio,
             domain.dataHoraTermino
         );
     }
 
-    paraDto(domain: Reserva): ReservaDto {
+    static paraDto(domain: Reserva): ReservaDto {
         return new ReservaDto (
             domain.id, 
-            this.usuarioMapper.paraDto(domain.usuario),
-            this.salaMapper.paraDto(domain.sala),
+            UsuarioMapper.paraDto(domain.usuario),
+            SalaMapper.paraDto(domain.sala),
             domain.dataHoraInicio,
             domain.dataHoraTermino
         );
     }
  
 
-    paraDtos(domains: Array<Reserva>): Array<ReservaDto> {
+    static paraDtos(domains: Array<Reserva>): Array<ReservaDto> {
         return domains.map(domain => this.paraDto(domain));
     }
 
-    paraDomainDeDto(dto: ReservaDto): Reserva {
+    static paraDomainDeDto(dto: ReservaDto): Reserva {
         return new Reserva(
             dto.id,
-            this.usuarioMapper.paraDomainDeDto(dto.usuario),
-            this.salaMapper.paraDomainDeDto(dto.sala),
+            UsuarioMapper.paraDomainDeDto(dto.usuario),
+            SalaMapper.paraDomainDeDto(dto.sala),
             dto.dataHoraInicio,
             dto.dataHoraTermino
         );
