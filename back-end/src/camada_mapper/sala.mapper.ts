@@ -8,18 +8,18 @@ export class SalaMapper {
 
     constructor(private usuariomapper: UsuarioMapper){}
 
-    paraDomain(entity: SalaEntity): Sala {
+    static paraDomain(entity: SalaEntity): Sala {
         return new Sala(
             entity.id, 
             entity.nome, 
             entity.capacidade, 
             entity.localizacao, 
-            this.usuariomapper.paraDomain(entity.usuarioAdministrador),
+            UsuarioMapper.paraDomain(entity.usuarioAdministrador),
             entity.descricao
         );
     }
 
-    paraDoamains(entities: Array<SalaEntity>): Array<Sala> {
+    static paraDoamains(entities: Array<SalaEntity>): Array<Sala> {
         return entities.map(entity => this.paraDomain(entity));
     }
 

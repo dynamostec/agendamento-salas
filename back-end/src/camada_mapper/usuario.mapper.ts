@@ -4,7 +4,7 @@ import { UsuarioEntity } from "src/camada_repository/entities/usuario.entity";
 
 export class UsuarioMapper {
 
-    paraDomain(entity: UsuarioEntity): Usuario {
+    static paraDomain(entity: UsuarioEntity): Usuario {
         return new Usuario(
             entity.id, 
             entity.nome, 

@@ -1,5 +1,6 @@
 import { Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { SalaDto } from "./dto/salaDto";
+import { SalaUseCase } from "src/camada_use_case/sala.usecase";
 
 
 @Controller('salas')
