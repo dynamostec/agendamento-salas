@@ -6,12 +6,6 @@ import { ReservaDto } from 'src/camada_controller/dto/reservaDto';
 
 export class ReservaMapper {
 
-    constructor(
-        private usuarioMapper: UsuarioMapper,
-        private salaMapper: SalaMapper
-    ){}
-
-
     static paraDomain(entity: ReservaEntity): Reserva {
         return new Reserva(
             entity.id, 

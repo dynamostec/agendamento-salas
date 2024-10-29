@@ -6,8 +6,6 @@ import { SalaDto } from "src/camada_controller/dto/salaDto";
 
 export class SalaMapper {
 
-    constructor(private usuariomapper: UsuarioMapper){}
-
     static paraDomain(entity: SalaEntity): Sala {
         return new Sala(
             entity.id, 

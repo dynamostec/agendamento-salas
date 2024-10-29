@@ -26,5 +26,12 @@ export class Sala {
     localizacao: Endereco;
     usuarioAdministrador: Usuario;
     descricao: string;
+
+    alterarDados(novosDados: Sala) {
+        this.nome = novosDados.nome;
+        this.capacidade = novosDados.capacidade;
+        this.localizacao = novosDados.localizacao;
+        this.descricao = novosDados.descricao;
+    }
 }
 
