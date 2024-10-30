@@ -16,7 +16,7 @@ export class SalaController {
     }
 
     @Get('/administrador/:id')
-    consultarPorAdministrador(@Param('id') idAdministrador: number): SalaDto {
+    consultarPorAdministrador(@Param('id') idAdministrador: number): Arra<SalaDto> {
         return SalaMapper.paraDto(this.useCase.consultarPorAdministrador(idAdministrador));
     }
 

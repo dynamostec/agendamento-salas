@@ -1,39 +1,69 @@
 import { SalaMapper } from './../camada_mapper/sala.mapper';
 import { Injectable } from "@nestjs/common";
 import { Sala } from "src/camada_domain/sala";
+import { UsuarioUseCase } from './usuario.usecase';
+import { InjectRepository } from '@nestjs/typeorm';
+import { SalaEntity } from 'src/camada_repository/entities/sala.entity';
+import { Repository } from 'typeorm';
+import { UsuarioEntity } from 'src/camada_repository/entities/usuario.entity';
 
 @Injectable()
 export class SalaUseCase {
     
-    constructor(private repository: SalaRepository){}
+    constructor(
+        @InjectRepository(SalaEntity)
+        private readonly repository: Repository<SalaEntity>,
+        private usuarioUseCase: UsuarioUseCase
+    ){}
     
-    deletar(id: number) {
+    async deletar(id: number) {
         this.consultarPorId(id);
         this.repository.delete(id);
     }
 
-    editar(novosDados: Sala, id: number): Sala {
+    async editar(novosDados: Sala, id: number): Promise<Sala> {
         let salaExistente = this.consultarPorId(id);
         salaExistente.alterarDados(novosDados);
-        return SalaMapper.paraDomain(this.repository.save(SalaMapper.paraEntity(salaExistente)));
+        const salaAtualizada = await this.repository.save(SalaMapper.paraEntity(salaExistente))
+        return SalaMapper.paraDomain(salaAtualizada);
     }
-    cadastrar(novaSala: Sala): Sala {
-        let salaExistente = this.repository.consultarPorNome(novaSala.nome);
+
+    async cadastrar(novaSala: Sala): Promise<Sala> {
+        const nome = novaSala.nome;
+        const salaExistente = await this.repository.find({ where: {nome}});
 
         if(salaExistente == null || salaExistente == undefined) {
             console.log('Sala com este nome já cadastrada');
         }else {
-            return SalaMapper.paraDomain(this.repository.save(SalaMapper.paraEntity(novaSala)));
+            const usuario = this.usuarioUseCase.consultarPorId(novaSala.usuarioAdministrador.id);
+            novaSala.usuarioAdministrador = usuario;
+            const novaSalaSalva = await this.repository.save(SalaMapper.paraEntity(novaSala))
+            return SalaMapper.paraDomain(novaSalaSalva);
         }
     }
-    consultarPorId(id: number): Sala {
-        throw new Error("Method not implemented.");
+
+    async consultarPorId(id: number): Promise<Sala> {
+        const sala = await this.repository.findOne({where: {id}});
+
+        if(sala != null || sala == undefined) {
+            console.log('Sala não encontrada');
+        }else {
+            return SalaMapper.paraDomain(sala);
+        }
     }
-    consultarPorAdministrador(idAdministrador: number): Sala {
-        throw new Error("Method not implemented.");
+
+    async consultarPorAdministrador(idAdministrador: number):Promise<Array<Sala>> {
+        return SalaMapper.paraDoamains(
+            await this.repository.createQueryBuilder('sala')
+            .innerJoinAndSelect('sala.usuarioAdministrador', 'usuario')
+            .where('usuario.id = :idAdministrador', {idAdministrador})
+            .getMany()
+        );
     }
-    listar(): Array<Sala> {
-        throw new Error("Method not implemented.");
+
+
+    async listar(): Array<Sala> {
+        return this.repository.getAll();
     }
 
 
