@@ -5,7 +5,7 @@ import { Usuario } from "./usuario";
 export class Sala {
 
     constructor(
-        id: number,
+        id: string,
         nome: string,
         capacidade: number,
         localizacao: Endereco,
@@ -20,7 +20,7 @@ export class Sala {
         this.descricao = descricao;
     }
 
-    id: number;
+    id: string;
     nome: string;
     capacidade: number;
     localizacao: Endereco;

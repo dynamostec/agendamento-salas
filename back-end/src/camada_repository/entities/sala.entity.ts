@@ -6,7 +6,7 @@ import { UsuarioEntity } from "./usuario.entity";
 export class SalaEntity {
 
     constructor(
-        id: number,
+        id: string,
         nome: string,
         capacidade: number,
         localizacao: Endereco,
@@ -21,8 +21,8 @@ export class SalaEntity {
         this.descricao = descricao;
     }
 
-    @PrimaryGeneratedColumn('identity')
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column({ name: 'nome', length: 100, nullable: false})
     nome: string;
@@ -34,7 +34,6 @@ export class SalaEntity {
     localizacao: Endereco
 
     @ManyToOne(() => UsuarioEntity)
-    @Column({ name: 'usuario_administrador' })
     usuarioAdministrador:UsuarioEntity
 
     @Column({ name: 'descricao', length: 100, nullable: false})

@@ -4,7 +4,7 @@ import { UsuarioDto } from "./usuarioDto";
 export class SalaDto {
 
     constructor(
-        id: number,
+        id: string,
         nome: string,
         capacidade: number,
         usuarioAdministrador: UsuarioDto,
@@ -19,7 +19,7 @@ export class SalaDto {
         this.descricao=descricao;
     }
 
-    id: number;
+    id: string;
     nome: string;
     capacidade: number;
     usuarioAdministrador: UsuarioDto;

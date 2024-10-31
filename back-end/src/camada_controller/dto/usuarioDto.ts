@@ -3,7 +3,7 @@ import { TipoUsuario } from "src/camada_domain/tipoUsario";
 export class UsuarioDto {
 
     constructor(
-        id: number,
+        id: string,
         nome: string,
         email: string,
         senha: string,
@@ -16,7 +16,7 @@ export class UsuarioDto {
         this.tipoUsuario=tipoUsuario;
     }
 
-    id: number;
+    id: string;
     nome: string;
     email: string;
     senha: string;

@@ -3,7 +3,7 @@ import { TipoUsuario } from "./tipoUsario";
 export class Usuario {
 
     constructor(
-        id: number,
+        id: string,
         nome: string,
         email: string,
         senha: string,
@@ -16,7 +16,7 @@ export class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
-    id:number;
+    id:string;
     nome:string;
     email:string;
     senha:string;

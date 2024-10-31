@@ -4,7 +4,7 @@ import { SalaDto } from "./salaDto";
 export class ReservaDto {
 
     constructor(
-        id: number,
+        id: string,
         usuario: UsuarioDto,
         sala: SalaDto,
         dataHoraInicio: Date,
@@ -17,7 +17,7 @@ export class ReservaDto {
         this.dataHoraTermino= dataHoraTermino;
     }
 
-    id: number;
+    id: string;
     usuario: UsuarioDto;
     sala: SalaDto;
     dataHoraInicio: Date;

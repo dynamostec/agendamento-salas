@@ -6,7 +6,7 @@ import { TipoUsuario } from 'src/camada_domain/tipoUsario';
 export class UsuarioEntity {
 
     constructor(
-        id: number,
+        id: string,
         nome: string,
         email: string,
         senha: string,
@@ -19,8 +19,8 @@ export class UsuarioEntity {
         this.tipoUsuario = tipoUsuario;
     }
 
-    @PrimaryGeneratedColumn('identity')
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column({ name: 'nome', length: 100, nullable: false })
     nome: string;

@@ -6,7 +6,7 @@ import { UsuarioEntity } from "./usuario.entity";
 export class ReservaEntity {
 
     constructor(
-        id: number, 
+        id: string, 
         usuario: UsuarioEntity,
         sala: SalaEntity,
         dataHoraInicio: Date,
@@ -19,8 +19,8 @@ export class ReservaEntity {
         this.dataHoraTermino = dataHoraTermino;
     }
 
-    @PrimaryGeneratedColumn('identity')
-    id:number;
+    @PrimaryGeneratedColumn('uuid')
+    id:string;
 
     @ManyToOne(() => UsuarioEntity)
     usuario:UsuarioEntity;

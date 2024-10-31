@@ -5,7 +5,6 @@ import { UsuarioUseCase } from './usuario.usecase';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SalaEntity } from 'src/camada_repository/entities/sala.entity';
 import { Repository } from 'typeorm';
-import { UsuarioEntity } from 'src/camada_repository/entities/usuario.entity';
 
 @Injectable()
 export class SalaUseCase {
@@ -16,13 +15,13 @@ export class SalaUseCase {
         private usuarioUseCase: UsuarioUseCase
     ){}
     
-    async deletar(id: number) {
+    async deletar(id: string) {
         this.consultarPorId(id);
         this.repository.delete(id);
     }
 
-    async editar(novosDados: Sala, id: number): Promise<Sala> {
-        let salaExistente = this.consultarPorId(id);
+    async editar(novosDados: Sala, id: string): Promise<Sala> {
+        let salaExistente = await this.consultarPorId(id);
         salaExistente.alterarDados(novosDados);
         const salaAtualizada = await this.repository.save(SalaMapper.paraEntity(salaExistente))
         return SalaMapper.paraDomain(salaAtualizada);
@@ -35,14 +34,14 @@ export class SalaUseCase {
         if(salaExistente == null || salaExistente == undefined) {
             console.log('Sala com este nome já cadastrada');
         }else {
-            const usuario = this.usuarioUseCase.consultarPorId(novaSala.usuarioAdministrador.id);
+            const usuario = await this.usuarioUseCase.consultarPorId(novaSala.usuarioAdministrador.id);
             novaSala.usuarioAdministrador = usuario;
             const novaSalaSalva = await this.repository.save(SalaMapper.paraEntity(novaSala))
             return SalaMapper.paraDomain(novaSalaSalva);
         }
     }
 
-    async consultarPorId(id: number): Promise<Sala> {
+    async consultarPorId(id: string): Promise<Sala> {
         const sala = await this.repository.findOne({where: {id}});
 
         if(sala != null || sala == undefined) {
@@ -52,7 +51,7 @@ export class SalaUseCase {
         }
     }
 
-    async consultarPorAdministrador(idAdministrador: number):Promise<Array<Sala>> {
+    async consultarPorAdministrador(idAdministrador: string):Promise<Array<Sala>> {
         return SalaMapper.paraDoamains(
             await this.repository.createQueryBuilder('sala')
             .innerJoinAndSelect('sala.usuarioAdministrador', 'usuario')
@@ -62,8 +61,12 @@ export class SalaUseCase {
     }
 
 
-    async listar(): Array<Sala> {
-        return this.repository.getAll();
+    async listar(): Promise<Array<Sala>> {
+        const salas = await this.repository.find({
+            relations: ['usuarioAdministrador'],
+        });
+        console.log(salas);
+        return SalaMapper.paraDoamains(salas);
     }
 
 
