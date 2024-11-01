@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { TipoUsuario } from "src/camada_domain/tipoUsario";
 import { Usuario } from "src/camada_domain/usuario";
 import { UsuarioMapper } from "src/camada_mapper/usuario.mapper";
-import { UsuarioEntity } from "src/camada_repository/entities/usuario.entity";
+import { UsuarioEntity } from "src/camada_entities/usuario.entity";
 import { Repository } from "typeorm";
 
 @Injectable()

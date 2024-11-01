@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from "@nestjs/common";
 import { SalaDto } from "./dto/salaDto";
 import { SalaUseCase } from "src/camada_use_case/sala.usecase";
 import { SalaMapper } from "src/camada_mapper/sala.mapper";
@@ -22,7 +22,8 @@ export class SalaController {
 
     @Get('/:id')
     async consultarPorId(@Param('id') id: string): Promise<SalaDto> {
-        return SalaMapper.paraDto(await this.useCase.consultarPorId(id));
+        const sala = await this.useCase.consultarPorId(id)
+        return SalaMapper.paraDto(sala);
     }
 
     @Post()
@@ -37,6 +38,7 @@ export class SalaController {
     }
 
     @Delete('/:id')
+    @HttpCode(204)
     async deletar(@Param('id') id: string) {
         this.useCase.deletar(id);
     }

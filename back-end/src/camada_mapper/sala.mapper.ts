@@ -1,8 +1,9 @@
-import { SalaEntity } from "src/camada_repository/entities/sala.entity";
-import { UsuarioEntity } from "src/camada_repository/entities/usuario.entity";
+import { SalaEntity } from "src/camada_entities/sala.entity";
+import { UsuarioEntity } from "src/camada_entities/usuario.entity";
 import { UsuarioMapper } from "./usuario.mapper";
 import { Sala } from "src/camada_domain/sala";
 import { SalaDto } from "src/camada_controller/dto/salaDto";
+import { EnderecoMapper } from "./endereco.mapper";
 
 export class SalaMapper {
 
@@ -11,7 +12,7 @@ export class SalaMapper {
             entity.id, 
             entity.nome, 
             entity.capacidade, 
-            entity.localizacao, 
+            EnderecoMapper.paraDomain(entity.localizacao), 
             UsuarioMapper.paraDomain(entity.usuarioAdministrador),
             entity.descricao
         );
@@ -26,7 +27,7 @@ export class SalaMapper {
             domain.id, 
             domain.nome, 
             domain.capacidade, 
-            domain.localizacao, 
+            EnderecoMapper.paraEntity(domain.localizacao), 
             UsuarioMapper.paraEntity(domain.usuarioAdministrador),
             domain.descricao
         );
@@ -38,7 +39,7 @@ export class SalaMapper {
             domain.nome, 
             domain.capacidade, 
             UsuarioMapper.paraDto(domain.usuarioAdministrador),
-            domain.localizacao, 
+            EnderecoMapper.paraDto(domain.localizacao), 
             domain.descricao
         );
     }
@@ -53,7 +54,7 @@ export class SalaMapper {
             dto.id, 
             dto.nome, 
             dto.capacidade, 
-            dto.localizacao, 
+            EnderecoMapper.paraDomainDeDto(dto.localizacao), 
             UsuarioMapper.paraDomainDeDto(dto.usuarioAdministrador),
             dto.descricao
         );

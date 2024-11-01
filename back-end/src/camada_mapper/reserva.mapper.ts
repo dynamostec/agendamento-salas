@@ -1,7 +1,7 @@
 import { Reserva } from 'src/camada_domain/reserva';
 import { SalaMapper } from './sala.mapper';
 import { UsuarioMapper } from './usuario.mapper';
-import { ReservaEntity } from "src/camada_repository/entities/reserva.entity";
+import { ReservaEntity } from "src/camada_entities/reserva.entity";
 import { ReservaDto } from 'src/camada_controller/dto/reservaDto';
 
 export class ReservaMapper {

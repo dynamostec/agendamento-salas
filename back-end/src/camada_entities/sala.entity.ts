@@ -1,6 +1,7 @@
 import { Endereco } from "src/camada_domain/endereco";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UsuarioEntity } from "./usuario.entity";
+import { EnderecoEntity } from "./endereco.entity";
 
 @Entity({ name: 'salas' })
 export class SalaEntity {
@@ -30,8 +31,8 @@ export class SalaEntity {
     @Column({ name: 'capacidae', nullable: false})
     capacidade: number;
 
-    @Column(() => Endereco)
-    localizacao: Endereco
+    @Column(() => EnderecoEntity)
+    localizacao: EnderecoEntity
 
     @ManyToOne(() => UsuarioEntity)
     usuarioAdministrador:UsuarioEntity
