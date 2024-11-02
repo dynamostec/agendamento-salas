@@ -4,7 +4,7 @@ import { Sala } from "./sala";
 export class Reserva {
 
     constructor(
-        id: number,
+        id: string,
         usuario: Usuario,
         sala: Sala,
         dataHoraInicio: Date,
@@ -17,13 +17,13 @@ export class Reserva {
         this.dataHoraTermino = dataHoraTermino;
     }
 
-    private id: number;
+    private id: string;
     private usuario: Usuario;
     private sala: Sala;
     private dataHoraInicio: Date;
     private dataHoraTermino: Date;
 
-    get _id(): number {
+    get _id(): string {
         return this.id;
     }
 

@@ -3,7 +3,7 @@ import { TipoUsuario } from "./tipoUsario";
 export class Usuario {
 
     constructor(
-        id: number,
+        id: string,
         nome: string,
         email: string,
         senha: string,
@@ -16,13 +16,13 @@ export class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
-    private id:number;
+    private id:string;
     private nome:string;
     private email:string;
     private senha:string;
     private tipoUsuario:TipoUsuario;
 
-    get _id(): number {
+    get _id(): string {
         return this.id;
     }
 

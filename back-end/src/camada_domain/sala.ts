@@ -3,9 +3,12 @@ import { Endereco } from "./endereco";
 import { Usuario } from "./usuario";
 
 export class Sala {
+    alterarDados(novosDados: Sala) {
+        throw new Error('Method not implemented.');
+    }
 
     constructor(
-        id: number,
+        id: string,
         nome: string,
         capacidade: number,
         localizacao: Endereco,
@@ -20,14 +23,14 @@ export class Sala {
         this.descricao = descricao;
     }
 
-    private id: number;
+    private id: string;
     private nome: string;
     private capacidade: number;
     private localizacao: Endereco;
     private usuarioAdministrador: Usuario;
     private descricao: string;
 
-    get _id(): number {
+    get _id(): string {
         return this.id;
     }
 

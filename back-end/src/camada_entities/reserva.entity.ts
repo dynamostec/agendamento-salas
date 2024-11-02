@@ -6,7 +6,7 @@ import { UsuarioEntity } from "./usuario.entity";
 export class ReservaEntity {
 
     constructor(
-        id: number, 
+        id: string, 
         usuario: UsuarioEntity,
         sala: SalaEntity,
         dataHoraInicio: Date,
@@ -19,44 +19,8 @@ export class ReservaEntity {
         this.dataHoraTermino = dataHoraTermino;
     }
 
-    get _id(): number {
-        return this.id;
-    }
-
-    get _usuario(): UsuarioEntity {
-        return this.usuario;
-    }
-
-    set _usuario(value: UsuarioEntity) {
-        this.usuario = value;
-    }
-
-    get _sala(): SalaEntity {
-        return this.sala;
-    }
-
-    set _sala(value: SalaEntity) {
-        this.sala = value;
-    }
-
-    get _dataHoraInicio(): Date {
-        return this.dataHoraInicio;
-    }
-
-    set _dataHoraInicio(value: Date) {
-        this.dataHoraInicio = value;
-    }
-
-    get _dataHoraTermino(): Date {
-        return this.dataHoraTermino;
-    }
-
-    set _dataHoraTermino(value: Date) {
-        this.dataHoraTermino = value;
-    }
-
-    @PrimaryGeneratedColumn('identity')
-    id:number;
+    @PrimaryGeneratedColumn('uuid')
+    id:string;
 
     @ManyToOne(() => UsuarioEntity)
     usuario:UsuarioEntity;

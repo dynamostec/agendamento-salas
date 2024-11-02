@@ -6,7 +6,7 @@ import { TipoUsuario } from 'src/camada_domain/tipoUsario';
 export class UsuarioEntity {
 
     constructor(
-        id: number,
+        id: string,
         nome: string,
         email: string,
         senha: string,
@@ -19,44 +19,8 @@ export class UsuarioEntity {
         this.tipoUsuario = tipoUsuario;
     }
 
-    get _id(): number {
-        return this.id;
-    }
-
-    get _nome(): string {
-        return this.nome;
-    }
-
-    set _nome(value: string) {
-        this.nome = value;
-    }
-
-    get _email(): string {
-        return this.email;
-    }
-
-    set _email(value: string) {
-        this.email = value;
-    }
-
-    get _senha(): string {
-        return this.senha;
-    }
-
-    set _senha(value: string) {
-        this.senha = value;
-    }
-
-    get _tipoUsuario(): TipoUsuario {
-        return this.tipoUsuario;
-    }
-
-    set _tipoUsuario(value: TipoUsuario) {
-        this.tipoUsuario = value;
-    }
-
-    @PrimaryGeneratedColumn('identity')
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column({ name: 'nome', length: 100, nullable: false })
     nome: string;
