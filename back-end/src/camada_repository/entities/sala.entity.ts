@@ -21,6 +21,50 @@ export class SalaEntity {
         this.descricao = descricao;
     }
 
+    get _id(): number {
+        return this.id;
+    }
+
+    get _nome(): string {
+        return this.nome;
+    }
+
+    set _nome(value: string) {
+        this.nome = value;
+    }
+
+    get _capacidade(): number {
+        return this.capacidade;
+    }
+
+    set _capacidade(value: number) {
+        this.capacidade = value;
+    }
+
+    get _localizacao(): Endereco {
+        return this.localizacao;
+    }
+
+    set _localizacao(value: Endereco) {
+        this.localizacao = value;
+    }
+
+    get _usuarioAdministrador(): UsuarioEntity {
+        return this.usuarioAdministrador;
+    }
+
+    set _usuarioAdministrador(value: UsuarioEntity) {
+        this.usuarioAdministrador = value;
+    }
+
+    get _descricao(): string {
+        return this.descricao;
+    }
+
+    set _descricao(value: string) {
+        this.descricao = value;
+    }
+
     @PrimaryGeneratedColumn('identity')
     id: number;
 

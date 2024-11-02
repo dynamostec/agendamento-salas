@@ -20,11 +20,54 @@ export class Sala {
         this.descricao = descricao;
     }
 
-    id: number;
-    nome: string;
-    capacidade: number;
-    localizacao: Endereco;
-    usuarioAdministrador: Usuario;
-    descricao: string;
-}
+    private id: number;
+    private nome: string;
+    private capacidade: number;
+    private localizacao: Endereco;
+    private usuarioAdministrador: Usuario;
+    private descricao: string;
 
+    get _id(): number {
+        return this.id;
+    }
+
+    get _nome(): string {
+        return this.nome;
+    }
+
+    set _nome(value: string) {
+        this.nome = value;
+    }
+
+    get _capacidade(): number {
+        return this.capacidade;
+    }
+
+    set _capacidade(value: number) {
+        this.capacidade = value;
+    }
+
+    get _localizacao(): Endereco {
+        return this.localizacao;
+    }
+
+    set _localizacao(value: Endereco) {
+        this.localizacao = value;
+    }
+
+    get _usuarioAdministrador(): Usuario {
+        return this.usuarioAdministrador;
+    }
+
+    set _usuarioAdministrador(value: Usuario) {
+        this.usuarioAdministrador = value;
+    }
+
+    get _descricao(): string {
+        return this.descricao;
+    }
+
+    set _descricao(value: string) {
+        this.descricao = value;
+    }
+}
