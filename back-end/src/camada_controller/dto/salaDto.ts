@@ -19,54 +19,54 @@ export class SalaDto {
         this.descricao=descricao;
     }
 
-    id: string;
-    nome: string;
-    capacidade: number;
-    usuarioAdministrador: UsuarioDto;
-    localizacao: EnderecoDto;
-    descricao: string;
+    private id: string;
+    private nome: string;
+    private capacidade: number;
+    private usuarioAdministrador: UsuarioDto;
+    private localizacao: EnderecoDto;
+    private descricao: string;
 
-    get _id(): number {
+    get getId(): string {
         return this.id;
     }
 
-    get _nome(): string {
+    get getNome(): string {
         return this.nome;
     }
 
-    set _nome(value: string) {
+    set setNome(value: string) {
         this.nome = value;
     }
 
-    get _capacidade(): number {
+    get getCapacidade(): number {
         return this.capacidade;
     }
 
-    set _capacidade(value: number) {
+    set setCapacidade(value: number) {
         this.capacidade = value;
     }
 
-    get _localizacao(): EnderecoDto {
+    get getLocalizacao(): EnderecoDto {
         return this.localizacao;
     }
 
-    set _localizacao(value: EnderecoDto) {
+    set setLocalizacao(value: EnderecoDto) {
         this.localizacao = value;
     }
 
-    get _usuarioAdministrador(): UsuarioDto {
+    get getUsuarioAdministrador(): UsuarioDto {
         return this.usuarioAdministrador;
     }
 
-    set _usuarioAdministrador(value: UsuarioDto) {
+    set setUsuarioAdministrador(value: UsuarioDto) {
         this.usuarioAdministrador = value;
     }
 
-    get _descricao(): string {
+    get getDescricao(): string {
         return this.descricao;
     }
 
-    set _descricao(value: string) {
+    set setDescricao(value: string) {
         this.descricao = value;
     }
 }

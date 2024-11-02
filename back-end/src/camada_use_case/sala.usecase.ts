@@ -41,7 +41,7 @@ export class SalaUseCase {
     }
 
     async cadastrar(novaSala: Sala): Promise<Sala> {
-        const nome = novaSala._nome;
+        const nome = novaSala.getNome;
         let salaExistente;
         try {
             salaExistente = await this.repository.find({ where: { nome } });
@@ -54,13 +54,13 @@ export class SalaUseCase {
             throw new HttpException('Sala com este nome já cadastrada', HttpStatus.BAD_REQUEST);
         }
 
-        const usuario = await this.usuarioUseCase.consultarPorId(novaSala._usuarioAdministrador._id);
+        const usuario = await this.usuarioUseCase.consultarPorId(novaSala.getUsuarioAdministrador.getId);
 
-        if (usuario._tipoUsuario != TipoUsuario.ADMIN) {
+        if (usuario.getTipoUsuario != TipoUsuario.ADMIN) {
             throw new HttpException('Usuário não administrador não pode cadastrar salas', HttpStatus.BAD_REQUEST);
         }
 
-        novaSala._usuarioAdministrador = usuario;
+        novaSala.getUsuarioAdministrador = usuario;
 
         let novaSalaSalva;
 

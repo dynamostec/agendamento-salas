@@ -17,45 +17,45 @@ export class ReservaDto {
         this.dataHoraTermino= dataHoraTermino;
     }
 
-    id: string;
-    usuario: UsuarioDto;
-    sala: SalaDto;
-    dataHoraInicio: Date;
-    dataHoraTermino: Date;
+    private id: string;
+    private usuario: UsuarioDto;
+    private sala: SalaDto;
+    private dataHoraInicio: Date;
+    private dataHoraTermino: Date;
 
-    get _id(): number {
+    get getId(): string {
         return this.id;
     }
 
-    get _usuario(): UsuarioDto {
+    get getUsuario(): UsuarioDto {
         return this.usuario;
     }
 
-    set _usuario(value: UsuarioDto) {
+    set setUsuario(value: UsuarioDto) {
         this.usuario = value;
     }
 
-    get _sala(): SalaDto {
+    get getSala(): SalaDto {
         return this.sala;
     }
 
-    set _sala(value: SalaDto) {
+    set setSala(value: SalaDto) {
         this.sala = value;
     }
 
-    get _dataHoraInicio(): Date {
+    get getDataHoraInicio(): Date {
         return this.dataHoraInicio;
     }
 
-    set _dataHoraInicio(value: Date) {
+    set setDataHoraInicio(value: Date) {
         this.dataHoraInicio = value;
     }
 
-    get _dataHoraTermino(): Date {
+    get getDataHoraTermino(): Date {
         return this.dataHoraTermino;
     }
 
-    set _dataHoraTermino(value: Date) {
+    set setDataHoraTermino(value: Date) {
         this.dataHoraTermino = value;
     }
 }

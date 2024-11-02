@@ -16,45 +16,45 @@ export class UsuarioDto {
         this.tipoUsuario=tipoUsuario;
     }
 
-    id: string;
-    nome: string;
-    email: string;
-    senha: string;
-    tipoUsuario: TipoUsuario;
+    private id: string;
+    private nome: string;
+    private email: string;
+    private senha: string;
+    private tipoUsuario: TipoUsuario;
     
-    get _id(): number {
+    get getId(): string {
         return this.id;
     }
 
-    get _nome(): string {
+    get getNome(): string {
         return this.nome;
     }
 
-    set _nome(value: string) {
+    set setNome(value: string) {
         this.nome = value;
     }
 
-    get _email(): string {
+    get getEmail(): string {
         return this.email;
     }
 
-    set _email(value: string) {
+    set setEmail(value: string) {
         this.email = value;
     }
 
-    get _senha(): string {
+    get getSenha(): string {
         return this.senha;
     }
 
-    set _senha(value: string) {
+    set setSenha(value: string) {
         this.senha = value;
     }
 
-    get _tipoUsuario(): TipoUsuario {
+    get getTipoUsuario(): TipoUsuario {
         return this.tipoUsuario;
     }
 
-    set _tipoUsuario(value: TipoUsuario) {
+    set setTipoUsuario(value: TipoUsuario) {
         this.tipoUsuario = value;
     }
 } 

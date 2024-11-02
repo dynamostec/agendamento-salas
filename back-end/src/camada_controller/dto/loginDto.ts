@@ -9,22 +9,22 @@ export class LoginDto {
         this.senha=senha;
     }
 
-    email: string;
-    senha: string;
+    private email: string;
+    private senha: string;
 
-    get _email(): string {
+    get getEmail(): string {
         return this.email;
     }
 
-    set _email(value: string) {
+    set setEmail(value: string) {
         this.email = value;
     }
 
-    get _senha(): string {
+    get getSenha(): string {
         return this.senha;
     }
 
-    set _senha(value: string) {
+    set setSenha(value: string) {
         this.senha = value;
     }
 }

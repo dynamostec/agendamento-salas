@@ -8,11 +8,11 @@ export class ReservaMapper {
 
     static paraDomain(entity: ReservaEntity): Reserva {
         return new Reserva(
-            entity.id, 
-            UsuarioMapper.paraDomain(entity.usuario), 
-            SalaMapper.paraDomain(entity.sala),
-            entity.dataHoraInicio,
-            entity.dataHoraTermino
+            entity.getId, 
+            UsuarioMapper.paraDomain(entity.getUsuario), 
+            SalaMapper.paraDomain(entity.getSala),
+            entity.getDataHoraInicio,
+            entity.getDataHoraTermino
         );
     }
 
@@ -22,21 +22,21 @@ export class ReservaMapper {
 
     static paraEntity(domain: Reserva): ReservaEntity {
         return new ReservaEntity(
-            domain._id, 
-            UsuarioMapper.paraEntity(domain._usuario),
-            SalaMapper.paraEntity(domain._sala),
-            domain._dataHoraInicio,
-            domain._dataHoraTermino
+            domain.getId, 
+            UsuarioMapper.paraEntity(domain.getUsuario),
+            SalaMapper.paraEntity(domain.getSala),
+            domain.getDataHoraInicio,
+            domain.getDataHoraTermino
         );
     }
 
     static paraDto(domain: Reserva): ReservaDto {
         return new ReservaDto (
-            domain._id, 
-            UsuarioMapper.paraDto(domain._usuario),
-            SalaMapper.paraDto(domain._sala),
-            domain._dataHoraInicio,
-            domain._dataHoraTermino
+            domain.getId, 
+            UsuarioMapper.paraDto(domain.getUsuario),
+            SalaMapper.paraDto(domain.getSala),
+            domain.getDataHoraInicio,
+            domain.getDataHoraTermino
         );
     }
  
@@ -47,11 +47,11 @@ export class ReservaMapper {
 
     static paraDomainDeDto(dto: ReservaDto): Reserva {
         return new Reserva(
-            dto.id,
-            UsuarioMapper.paraDomainDeDto(dto.usuario),
-            SalaMapper.paraDomainDeDto(dto.sala),
-            dto.dataHoraInicio,
-            dto.dataHoraTermino
+            dto.getId,
+            UsuarioMapper.paraDomainDeDto(dto.getUsuario),
+            SalaMapper.paraDomainDeDto(dto.getSala),
+            dto.getDataHoraInicio,
+            dto.getDataHoraTermino
         );
     }
 }

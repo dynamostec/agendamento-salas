@@ -9,12 +9,12 @@ export class SalaMapper {
 
     static paraDomain(entity: SalaEntity): Sala {
         return new Sala(
-            entity.id, 
-            entity.nome, 
-            entity.capacidade, 
-            EnderecoMapper.paraDomain(entity.localizacao), 
-            UsuarioMapper.paraDomain(entity.usuarioAdministrador),
-            entity.descricao
+            entity.getId, 
+            entity.getNome, 
+            entity.getCapacidade, 
+            EnderecoMapper.paraDomain(entity.getLocalizacao), 
+            UsuarioMapper.paraDomain(entity.getUsuarioAdministrador),
+            entity.getDescricao
         );
     }
 
@@ -24,26 +24,25 @@ export class SalaMapper {
 
     static paraEntity(domain: Sala): SalaEntity {
         return new SalaEntity(
-            domain._id, 
-            domain._nome, 
-            domain._capacidade, 
-            EnderecoMapper.paraEntity(domain._localizacao), 
-            UsuarioMapper.paraEntity(domain._usuarioAdministrador),
-            domain._descricao
+            domain.getId, 
+            domain.getNome, 
+            domain.getCapacidade, 
+            EnderecoMapper.paraEntity(domain.getLocalizacao), 
+            UsuarioMapper.paraEntity(domain.getUsuarioAdministrador),
+            domain.getDescricao
         );
     }
 
     static paraDto(domain: Sala): SalaDto {
         return new SalaDto(
-            domain._id, 
-            domain._nome, 
-            domain._capacidade, 
-            UsuarioMapper.paraDto(domain._usuarioAdministrador),
-            EnderecoMapper.paraDto(domain._localizacao), 
-            domain._descricao
+            domain.getId, 
+            domain.getNome, 
+            domain.getCapacidade, 
+            UsuarioMapper.paraDto(domain.getUsuarioAdministrador),
+            EnderecoMapper.paraDto(domain.getLocalizacao), 
+            domain.getDescricao
         );
     }
-    
     
     static paraDtos(domains: Array<Sala>): Array<SalaDto> {
         return domains.map(domain => this.paraDto(domain));
@@ -51,12 +50,12 @@ export class SalaMapper {
 
     static paraDomainDeDto(dto: SalaDto): Sala {
         return new Sala(
-            dto.id, 
-            dto.nome, 
-            dto.capacidade, 
-            EnderecoMapper.paraDomainDeDto(dto.localizacao), 
-            UsuarioMapper.paraDomainDeDto(dto.usuarioAdministrador),
-            dto.descricao
+            dto.getId, 
+            dto.getNome, 
+            dto.getCapacidade, 
+            EnderecoMapper.paraDomainDeDto(dto.getLocalizacao), 
+            UsuarioMapper.paraDomainDeDto(dto.getUsuarioAdministrador),
+            dto.getDescricao
         );
     }
 }

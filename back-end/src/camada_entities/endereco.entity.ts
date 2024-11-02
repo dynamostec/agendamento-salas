@@ -15,14 +15,46 @@ export class EnderecoEntity {
     }
 
     @Column({ nullable: false })
-    rua: string;
+    private rua: string;
 
     @Column({ nullable: false })
-    cep: string;
+    private cep: string;
 
     @Column({ nullable: false }) 
-    cidade: string;
+    private cidade: string;
 
     @Column({ nullable: false })
-    estado: string;
+    private estado: string;
+
+    get getRua(): string {
+        return this.rua;
+    }
+
+    set setRua(value: string) {
+        this.rua = value;
+    }
+
+    get getCep(): string {
+        return this.cep;
+    }
+
+    set setCep(value: string) {
+        this.cep = value;
+    }
+
+    get getCidade(): string {
+        return this.cidade;
+    }
+
+    set setCidade(value: string) {
+        this.cidade = value;
+    }
+
+    get getEstado(): string {
+        return this.estado;
+    }
+
+    set setEstado(value: string) {
+        this.estado = value;
+    }
 }
