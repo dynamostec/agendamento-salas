@@ -22,39 +22,39 @@ export class Usuario {
     private senha:string;
     private tipoUsuario:TipoUsuario;
 
-    get getId(): string {
+    getId(): string {
         return this.id;
     }
 
-    get getNome(): string {
+    getNome(): string {
         return this.nome;
     }
 
-    set setNome(value: string) {
+    setNome(value: string) {
         this.nome = value;
     }
 
-    get getEmail(): string {
+    getEmail(): string {
         return this.email;
     }
 
-    set setEmail(value: string) {
+    setEmail(value: string) {
         this.email = value;
     }
 
-    get getSenha(): string {
+    getSenha(): string {
         return this.senha;
     }
 
-    set setSenha(value: string) {
+    setSenha(value: string) {
         this.senha = value;
     }
 
-    get getTipoUsuario(): TipoUsuario {
+    getTipoUsuario(): TipoUsuario {
         return this.tipoUsuario;
     }
 
-    set setTipoUsuario(value: TipoUsuario) {
+    setTipoUsuario(value: TipoUsuario) {
         this.tipoUsuario = value;
     }
 }

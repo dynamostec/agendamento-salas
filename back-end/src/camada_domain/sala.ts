@@ -30,47 +30,47 @@ export class Sala {
     private usuarioAdministrador: Usuario;
     private descricao: string;
 
-    get getId(): string {
+    getId(): string {
         return this.id;
     }
 
-    get getNome(): string {
+    getNome(): string {
         return this.nome;
     }
 
-    set setNome(value: string) {
+    setNome(value: string) {
         this.nome = value;
     }
 
-    get getCapacidade(): number {
+    getCapacidade(): number {
         return this.capacidade;
     }
 
-    set setCapacidade(value: number) {
+    setCapacidade(value: number) {
         this.capacidade = value;
     }
 
-    get getLocalizacao(): Endereco {
+    getLocalizacao(): Endereco {
         return this.localizacao;
     }
 
-    set setLocalizacao(value: Endereco) {
+    setLocalizacao(value: Endereco) {
         this.localizacao = value;
     }
 
-    get getUsuarioAdministrador(): Usuario {
+    getUsuarioAdministrador(): Usuario {
         return this.usuarioAdministrador;
     }
 
-    set setUsuarioAdministrador(value: Usuario) {
+    setUsuarioAdministrador(value: Usuario) {
         this.usuarioAdministrador = value;
     }
 
-    get getDescricao(): string {
+    getDescricao(): string {
         return this.descricao;
     }
 
-    set setDescricao(value: string) {
+    setDescricao(value: string) {
         this.descricao = value;
     }
 }

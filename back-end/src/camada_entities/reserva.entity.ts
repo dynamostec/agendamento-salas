@@ -20,19 +20,19 @@ export class ReservaEntity {
     }
 
     @PrimaryGeneratedColumn('uuid')
-    private id:string;
+    id:string;
 
     @ManyToOne(() => UsuarioEntity)
-    private usuario:UsuarioEntity;
+    usuario:UsuarioEntity;
     
     @ManyToOne(() => SalaEntity)
-    private sala:SalaEntity;
+    sala:SalaEntity;
 
     @Column({ name: 'data_hora_inicio', nullable: false })
-    private dataHoraInicio:Date;
+    dataHoraInicio:Date;
 
     @Column({ name: 'data_hora_termino', nullable: false })
-    private dataHoraTermino:Date;
+    dataHoraTermino:Date;
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: string;
@@ -42,32 +42,4 @@ export class ReservaEntity {
 
     @DeleteDateColumn({ name: 'delete_at' })
     deleteAt: string;
-
-    get getId(): string {
-        return this.id;
-    }
-    get getUsuario(): UsuarioEntity {
-        return this.usuario;
-    }
-    set setUsuario(value: UsuarioEntity) {
-        this.usuario = value;
-    }
-    get getSala(): SalaEntity {
-        return this.sala;
-    }
-    set setSala(value: SalaEntity) {
-        this.sala = value;
-    }
-    get getDataHoraInicio(): Date {
-        return this.dataHoraInicio;
-    }
-    set setDataHoraInicio(value: Date) {
-        this.dataHoraInicio = value;
-    }
-    get getDataHoraTermino(): Date {
-        return this.dataHoraTermino;
-    }
-    set setDataHoraTermino(value: Date) {
-        this.dataHoraTermino = value;
-    }
 }

@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SalaEntity } from 'src/camada_entities/sala.entity';
 import { Repository } from 'typeorm';
 import { TipoUsuario } from 'src/camada_domain/tipoUsario';
+import { UsuarioMapper } from 'src/camada_mapper/usuario.mapper';
 
 @Injectable()
 export class SalaUseCase {
@@ -41,7 +42,7 @@ export class SalaUseCase {
     }
 
     async cadastrar(novaSala: Sala): Promise<Sala> {
-        const nome = novaSala.getNome;
+        const nome = novaSala.getNome();
         let salaExistente;
         try {
             salaExistente = await this.repository.find({ where: { nome } });
@@ -54,13 +55,13 @@ export class SalaUseCase {
             throw new HttpException('Sala com este nome já cadastrada', HttpStatus.BAD_REQUEST);
         }
 
-        const usuario = await this.usuarioUseCase.consultarPorId(novaSala.getUsuarioAdministrador.getId);
+        const usuario = await this.usuarioUseCase.consultarPorId(novaSala.getUsuarioAdministrador().getId());
 
-        if (usuario.getTipoUsuario != TipoUsuario.ADMIN) {
+        if (usuario.tipoUsuario != TipoUsuario.ADMIN) {
             throw new HttpException('Usuário não administrador não pode cadastrar salas', HttpStatus.BAD_REQUEST);
         }
 
-        novaSala.getUsuarioAdministrador = usuario;
+        novaSala.setUsuarioAdministrador(UsuarioMapper.paraDomain(usuario));
 
         let novaSalaSalva;
 

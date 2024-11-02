@@ -23,22 +23,22 @@ export class SalaEntity {
     }
 
     @PrimaryGeneratedColumn('uuid')
-    private id: string;
+    id: string;
 
     @Column({ name: 'nome', length: 100, nullable: false})
-    private nome: string;
+    nome: string;
 
     @Column({ name: 'capacidae', nullable: false})
-    private capacidade: number;
+    capacidade: number;
 
     @Column(() => EnderecoEntity)
-    private localizacao: EnderecoEntity
+    localizacao: EnderecoEntity
 
     @ManyToOne(() => UsuarioEntity)
-    private usuarioAdministrador:UsuarioEntity
+    usuarioAdministrador:UsuarioEntity
 
     @Column({ name: 'descricao', length: 100, nullable: false})
-    private descricao: string;
+    descricao: string;
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: string;
@@ -48,48 +48,4 @@ export class SalaEntity {
 
     @DeleteDateColumn({ name: 'delete_at' })
     deleteAt: string;
-    
-    get getId(): string {
-        return this.id;
-    }
-
-    get getNome(): string {
-        return this.nome;
-    }
-
-    set setNome(value: string) {
-        this.nome = value;
-    }
-
-    get getCapacidade(): number {
-        return this.capacidade;
-    }
-
-    set setCapacidade(value: number) {
-        this.capacidade = value;
-    }
-
-    get getLocalizacao(): EnderecoEntity {
-        return this.localizacao;
-    }
-
-    set setLocalizacao(value: EnderecoEntity) {
-        this.localizacao = value;
-    }
-
-    get getUsuarioAdministrador(): UsuarioEntity {
-        return this.usuarioAdministrador;
-    }
-
-    set setUsuarioAdministrador(value: UsuarioEntity) {
-        this.usuarioAdministrador = value;
-    }
-
-    get getDescricao(): string {
-        return this.descricao;
-    }
-
-    set setDescricao(value: string) {
-        this.descricao = value;
-    }
 }

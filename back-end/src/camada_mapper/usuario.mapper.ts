@@ -6,41 +6,41 @@ export class UsuarioMapper {
 
     static paraDomain(entity: UsuarioEntity): Usuario {
         return new Usuario(
-            entity.getId, 
-            entity.getNome, 
-            entity.getEmail, 
-            entity.getSenha, 
+            entity.id, 
+            entity.nome, 
+            entity.email, 
+            entity.senha, 
             entity.tipoUsuario
         );
     }
 
     static paraEntity(domain: Usuario): UsuarioEntity {
         return new UsuarioEntity(
-            domain.getId, 
-            domain.getNome, 
-            domain.getEmail, 
-            domain.getSenha, 
-            domain.getTipoUsuario
+            domain.getId(), 
+            domain.getNome(), 
+            domain.getEmail(), 
+            domain.getSenha(), 
+            domain.getTipoUsuario()
         );
     }
 
     static paraDto(domain: Usuario): UsuarioDto {
         return new UsuarioDto(
-            domain.getId, 
-            domain.getNome, 
-            domain.getEmail, 
-            domain.getSenha, 
-            domain.getTipoUsuario
+            domain.getId(), 
+            domain.getNome(), 
+            domain.getEmail(), 
+            domain.getSenha(), 
+            domain.getTipoUsuario()
         );
     }
 
     static paraDomainDeDto(dto: UsuarioDto): Usuario {
         return new Usuario(
-            dto.getId, 
-            dto.getNome, 
-            dto.getEmail, 
-            dto.getSenha, 
-            dto.getTipoUsuario
+            dto.getId(), 
+            dto.getNome(), 
+            dto.getEmail(), 
+            dto.getSenha(), 
+            dto.getTipoUsuario()
         );
     }
 }

@@ -23,39 +23,39 @@ export class Reserva {
     private dataHoraInicio: Date;
     private dataHoraTermino: Date;
 
-    get getId(): string {
+    getId(): string {
         return this.id;
     }
 
-    get getUsuario(): Usuario {
+    getUsuario(): Usuario {
         return this.usuario;
     }
 
-    set setUsuario(value: Usuario) {
+    setUsuario(value: Usuario) {
         this.usuario = value;
     }
 
-    get getSala(): Sala {
+    getSala(): Sala {
         return this.sala;
     }
 
-    set setSala(value: Sala) {
+    setSala(value: Sala) {
         this.sala = value;
     }
 
-    get getDataHoraInicio(): Date {
+    getDataHoraInicio(): Date {
         return this.dataHoraInicio;
     }
 
-    set setDataHoraInicio(value: Date) {
+    setDataHoraInicio(value: Date) {
         this.dataHoraInicio = value;
     }
 
-    get getDataHoraTermino(): Date {
+    getDataHoraTermino(): Date {
         return this.dataHoraTermino;
     }
 
-    set setDataHoraTermino(value: Date) {
+    setDataHoraTermino(value: Date) {
         this.dataHoraTermino = value;
     }
 }

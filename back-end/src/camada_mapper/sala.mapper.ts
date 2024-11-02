@@ -9,12 +9,12 @@ export class SalaMapper {
 
     static paraDomain(entity: SalaEntity): Sala {
         return new Sala(
-            entity.getId, 
-            entity.getNome, 
-            entity.getCapacidade, 
-            EnderecoMapper.paraDomain(entity.getLocalizacao), 
-            UsuarioMapper.paraDomain(entity.getUsuarioAdministrador),
-            entity.getDescricao
+            entity.id, 
+            entity.nome, 
+            entity.capacidade, 
+            EnderecoMapper.paraDomain(entity.localizacao), 
+            UsuarioMapper.paraDomain(entity.usuarioAdministrador),
+            entity.descricao
         );
     }
 
@@ -24,23 +24,23 @@ export class SalaMapper {
 
     static paraEntity(domain: Sala): SalaEntity {
         return new SalaEntity(
-            domain.getId, 
-            domain.getNome, 
-            domain.getCapacidade, 
-            EnderecoMapper.paraEntity(domain.getLocalizacao), 
-            UsuarioMapper.paraEntity(domain.getUsuarioAdministrador),
-            domain.getDescricao
+            domain.getId(), 
+            domain.getNome(), 
+            domain.getCapacidade(), 
+            EnderecoMapper.paraEntity(domain.getLocalizacao()), 
+            UsuarioMapper.paraEntity(domain.getUsuarioAdministrador()),
+            domain.getDescricao()
         );
     }
 
     static paraDto(domain: Sala): SalaDto {
         return new SalaDto(
-            domain.getId, 
-            domain.getNome, 
-            domain.getCapacidade, 
-            UsuarioMapper.paraDto(domain.getUsuarioAdministrador),
-            EnderecoMapper.paraDto(domain.getLocalizacao), 
-            domain.getDescricao
+            domain.getId(), 
+            domain.getNome(), 
+            domain.getCapacidade(), 
+            UsuarioMapper.paraDto(domain.getUsuarioAdministrador()),
+            EnderecoMapper.paraDto(domain.getLocalizacao()), 
+            domain.getDescricao()
         );
     }
     
@@ -50,12 +50,12 @@ export class SalaMapper {
 
     static paraDomainDeDto(dto: SalaDto): Sala {
         return new Sala(
-            dto.getId, 
-            dto.getNome, 
-            dto.getCapacidade, 
-            EnderecoMapper.paraDomainDeDto(dto.getLocalizacao), 
-            UsuarioMapper.paraDomainDeDto(dto.getUsuarioAdministrador),
-            dto.getDescricao
+            dto.getId(), 
+            dto.getNome(), 
+            dto.getCapacidade(), 
+            EnderecoMapper.paraDomainDeDto(dto.getLocalizacao()), 
+            UsuarioMapper.paraDomainDeDto(dto.getUsuarioAdministrador()),
+            dto.getDescricao()
         );
     }
 }

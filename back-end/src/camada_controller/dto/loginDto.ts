@@ -12,19 +12,19 @@ export class LoginDto {
     private email: string;
     private senha: string;
 
-    get getEmail(): string {
+    getEmail(): string {
         return this.email;
     }
 
-    set setEmail(value: string) {
+    setEmail(value: string) {
         this.email = value;
     }
 
-    get getSenha(): string {
+    getSenha(): string {
         return this.senha;
     }
 
-    set setSenha(value: string) {
+    setSenha(value: string) {
         this.senha = value;
     }
 }

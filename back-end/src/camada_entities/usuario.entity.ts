@@ -20,16 +20,16 @@ export class UsuarioEntity {
     }
 
     @PrimaryGeneratedColumn('uuid')
-    private id: string;
+    id: string;
 
     @Column({ name: 'nome', length: 100, nullable: false })
-    private nome: string;
+    nome: string;
 
     @Column({ name: 'email', length: 70, nullable: false })
-    private email: string;
+    email: string;
 
     @Column({ name: 'senha', length: 255, nullable: false })
-    private senha: string;
+    senha: string;
 
     @Column({ 
         name: 'tipo_usuario',
@@ -47,40 +47,4 @@ export class UsuarioEntity {
 
     @DeleteDateColumn({ name: 'delete_at' })
     deleteAt: string;
-
-    get getId(): string {
-        return this.id;
-    }
-
-    get getNome(): string {
-        return this.nome;
-    }
-
-    set setNome(value: string) {
-        this.nome = value;
-    }
-
-    get getEmail(): string {
-        return this.email;
-    }
-
-    set setEmail(value: string) {
-        this.email = value;
-    }
-
-    get getSenha(): string {
-        return this.senha;
-    }
-
-    set setSenha(value: string) {
-        this.senha = value;
-    }
-
-    get getTipoUsuario(): TipoUsuario {
-        return this.tipoUsuario;
-    }
-
-    set setTipoUsuario(value: TipoUsuario) {
-        this.tipoUsuario = value;
-    }
 }
