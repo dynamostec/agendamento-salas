@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 import { UsuarioDto } from "./dto/usuarioDto";
 import { UsuarioMapper } from "src/camada_mapper/usuario.mapper";
 import { UsuarioUseCase } from "src/camada_use_case/usuario.usecase";
@@ -13,5 +13,13 @@ export class UsuarioController {
     @Post()
     async cadastrar(@Body() novoUsuario: UsuarioDto):Promise<UsuarioDto> {
         return UsuarioMapper.paraDto(await this.useCase.cadastrar(UsuarioMapper.paraDomainDeDto(novoUsuario)));
+    }
+
+    @Patch(':id/alterar-senha')
+    async alterarSenha(
+        @Param('id') id: string,
+        @Body('novaSenha') novaSenha: string
+    ): Promise<UsuarioDto> {
+        return UsuarioMapper.paraDto(await this.useCase.alterarSenha(id, novaSenha));
     }
 }
