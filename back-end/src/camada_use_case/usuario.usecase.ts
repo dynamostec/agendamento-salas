@@ -11,16 +11,14 @@ import { UsuarioDto } from 'src/camada_controller/dto/usuarioDto';
 export class UsuarioUseCase {
   constructor(
     @InjectRepository(UsuarioEntity)
-    private repository: Repository<UsuarioEntity>,
-    private usuarioUseCase: UsuarioUseCase,
+    private repository: Repository<UsuarioEntity>
   ) {}
 
   async consultarPorId(id: string): Promise<UsuarioEntity> {
     return await this.repository.findOne({ where: { id } });
   }
 
-  //Conversar com o Vitor sobre o UsuárioDto utiliazdo na promise
-  async cadastrar(novoUsuario: Usuario): Promise<UsuarioDto> {
+  async cadastrar(novoUsuario: Usuario): Promise<Usuario> {
     const email = novoUsuario.getEmail();
     let usuarioExistente;
 
@@ -54,40 +52,24 @@ export class UsuarioUseCase {
       );
     }
 
-    return UsuarioMapper.paraDto(usuarioSalvo);
+    return UsuarioMapper.paraDomain(usuarioSalvo);
   }
 
   async editarSenha(id: string, novaSenha: string): Promise<Usuario> {
-    let senhaExistente = await this.consultarPorId(id);
-    senhaExistente.alterar(novaSenha);
+    const senhaExistente = await this.consultarPorId(id);
+    const senhaNova = UsuarioMapper.paraDomain(senhaExistente);
+    senhaNova.setSenha(novaSenha);
     let senhaAtualizada;
 
     try {
-        senhaAtualizada = await this.repository.save(UsuarioMapper.paraEntity(senhaExistente))
+      senhaAtualizada = await this.repository.save(senhaExistente);
     } catch (error) {
-        console.error(error.message);
-        throw new HttpException('Erro ao salvar sala', HttpStatus.INTERNAL_SERVER_ERROR);
+      console.error(error.message);
+      throw new HttpException(
+        'Erro ao salvar senha',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
     return UsuarioMapper.paraDomain(senhaAtualizada);
-
-    // const senhaExistente = await this.consultarPorId(id);
-    // const senhaNova = UsuarioMapper.paraDomain(senhaExistente);
-
-    // senhaNova.alterarSenha(novaSenha);
-
-    // let senhaAtualizada;
-
-    // try {
-    //   senhaAtualizada = await this.repository.save(
-    //     UsuarioMapper.paraEntity(senhaNova),
-    //   );
-    // } catch (error) {
-    //   console.error(error.message);
-    //   throw new HttpException(
-    //     'Erro ao salvar sala',
-    //     HttpStatus.INTERNAL_SERVER_ERROR,
-    //   );
-    // }
-    // return UsuarioMapper.paraDomain(senhaAtualizada);
   }
 }
