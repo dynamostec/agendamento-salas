@@ -1,6 +1,9 @@
 import { TipoUsuario } from "./tipoUsario";
 
 export class Usuario {
+    alterarSenha(novaSenha: string) {
+        this.senha = novaSenha;
+    }
 
     constructor(
         id: string,
