@@ -4,7 +4,7 @@ import Login from "./Telas/login"
 export default function Home() {
   return (
     <>
-      <Login />
+      <Cadastro />
     </>
   );
 }
