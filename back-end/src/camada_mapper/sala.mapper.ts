@@ -2,7 +2,7 @@ import { SalaEntity } from "src/camada_entities/sala.entity";
 import { UsuarioEntity } from "src/camada_entities/usuario.entity";
 import { UsuarioMapper } from "./usuario.mapper";
 import { Sala } from "src/camada_domain/sala";
-import { SalaDto } from "src/camada_controller/dto/salaDto";
+import { SalaDto } from "src/camada_controller/dto/sala.dto";
 import { EnderecoMapper } from "./endereco.mapper";
 
 export class SalaMapper {
@@ -50,12 +50,12 @@ export class SalaMapper {
 
     static paraDomainDeDto(dto: SalaDto): Sala {
         return new Sala(
-            dto.getId(), 
-            dto.getNome(), 
-            dto.getCapacidade(), 
-            EnderecoMapper.paraDomainDeDto(dto.getLocalizacao()), 
-            UsuarioMapper.paraDomainDeDto(dto.getUsuarioAdministrador()),
-            dto.getDescricao()
+            dto.id, 
+            dto.nome, 
+            dto.capacidade, 
+            EnderecoMapper.paraDomainDeDto(dto.localizacao), 
+            UsuarioMapper.paraDomainDeDto(dto.usuarioAdministrador),
+            dto.descricao
         );
     }
 }

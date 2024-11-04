@@ -1,4 +1,4 @@
-import { UsuarioDto } from "src/camada_controller/dto/usuarioDto";
+import { UsuarioDto } from "src/camada_controller/dto/usuario.dto";
 import { Usuario } from "src/camada_domain/usuario";
 import { UsuarioEntity } from "src/camada_entities/usuario.entity";
 
@@ -36,11 +36,11 @@ export class UsuarioMapper {
 
     static paraDomainDeDto(dto: UsuarioDto): Usuario {
         return new Usuario(
-            dto.getId(), 
-            dto.getNome(), 
-            dto.getEmail(), 
-            dto.getSenha(), 
-            dto.getTipoUsuario()
+            dto.id, 
+            dto.nome, 
+            dto.email, 
+            dto.senha, 
+            dto.tipoUsuario
         );
     }
 }

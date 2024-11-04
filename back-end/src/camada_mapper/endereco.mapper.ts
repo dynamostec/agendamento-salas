@@ -1,4 +1,4 @@
-import { EnderecoDto } from "src/camada_controller/dto/enderecoDto";
+import { EnderecoDto } from "src/camada_controller/dto/endereco.dto";
 import { Endereco } from "src/camada_domain/endereco";
 import { EnderecoEntity } from "src/camada_entities/endereco.entity";
 
@@ -32,10 +32,10 @@ export class EnderecoMapper {
 
     static paraDomainDeDto(dto: EnderecoDto): Endereco {
         return new Endereco(
-            dto.getRua(), 
-            dto.getCep(), 
-            dto.getCidade(), 
-            dto.getEstado()
+            dto.rua, 
+            dto.cep, 
+            dto.cidade, 
+            dto.estado
         );
     }
 }

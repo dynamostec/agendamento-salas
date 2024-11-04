@@ -51,7 +51,7 @@ export class SalaUseCase {
             throw new HttpException('Erro ao buscar sala por id', HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        if (salaExistente != null || salaExistente != undefined) {
+        if (salaExistente == null) {
             throw new HttpException('Sala com este nome já cadastrada', HttpStatus.BAD_REQUEST);
         }
 

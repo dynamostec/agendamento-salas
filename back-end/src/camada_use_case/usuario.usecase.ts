@@ -5,7 +5,7 @@ import { Usuario } from 'src/camada_domain/usuario';
 import { UsuarioMapper } from 'src/camada_mapper/usuario.mapper';
 import { UsuarioEntity } from 'src/camada_entities/usuario.entity';
 import { Repository } from 'typeorm';
-import { UsuarioDto } from 'src/camada_controller/dto/usuarioDto';
+import { UsuarioDto } from 'src/camada_controller/dto/usuario.dto';
 
 @Injectable()
 export class UsuarioUseCase {
@@ -62,7 +62,7 @@ export class UsuarioUseCase {
     let senhaAtualizada;
 
     try {
-      senhaAtualizada = await this.repository.save(senhaExistente);
+      senhaAtualizada = await this.repository.save(UsuarioMapper.paraEntity(senhaNova));
     } catch (error) {
       console.error(error.message);
       throw new HttpException(

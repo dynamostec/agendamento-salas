@@ -2,7 +2,7 @@ import { Reserva } from 'src/camada_domain/reserva';
 import { SalaMapper } from './sala.mapper';
 import { UsuarioMapper } from './usuario.mapper';
 import { ReservaEntity } from "src/camada_entities/reserva.entity";
-import { ReservaDto } from 'src/camada_controller/dto/reservaDto';
+import { ReservaDto } from 'src/camada_controller/dto/reserva.dto';
 
 export class ReservaMapper {
 
@@ -47,11 +47,11 @@ export class ReservaMapper {
 
     static paraDomainDeDto(dto: ReservaDto): Reserva {
         return new Reserva(
-            dto.getId(),
-            UsuarioMapper.paraDomainDeDto(dto.getUsuario()),
-            SalaMapper.paraDomainDeDto(dto.getSala()),
-            dto.getDataHoraInicio(),
-            dto.getDataHoraTermino()
+            dto.id,
+            UsuarioMapper.paraDomainDeDto(dto.usuario),
+            SalaMapper.paraDomainDeDto(dto.sala),
+            dto.dataHoraInicio,
+            dto.dataHoraTermino
         );
     }
 }

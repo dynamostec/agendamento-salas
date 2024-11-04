@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { UsuarioDto } from './dto/usuarioDto';
+import { UsuarioDto } from './dto/usuario.dto';
 import { UsuarioMapper } from 'src/camada_mapper/usuario.mapper';
 import { UsuarioUseCase } from 'src/camada_use_case/usuario.usecase';
 
