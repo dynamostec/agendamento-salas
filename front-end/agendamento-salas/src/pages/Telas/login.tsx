@@ -8,7 +8,7 @@ export default function Login() {
 
   // Função chamada ao enviar o formulário
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     // Exemplo de validação básica
     if (email === '' || senha === '') {
@@ -41,20 +41,20 @@ export default function Login() {
         {mensagemErro && <p className={styles.errorMessage}>{mensagemErro}</p>} {/* Mensagem de erro */}
         <form onSubmit={handleLogin}>
           <div className={styles.formGroup}>
-            <input 
-              type="email" 
-              placeholder="Seu E-mail ..." 
-              value={email} 
+            <input
+              type="email"
+              placeholder="Seu E-mail ..."
+              value={email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-              required 
+              required
             />
           </div>
           <div className={styles.formGroup}>
-            <input 
-              type="password" 
-              placeholder="Sua Senha ..." 
-              value={senha} 
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSenha(e.target.value)} 
+            <input
+              type="password"
+              placeholder="Sua Senha ..."
+              value={senha}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSenha(e.target.value)}
               required
             />
           </div>
