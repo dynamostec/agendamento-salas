@@ -6,28 +6,28 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { SalaUseCase } from "./sala.usecase";
 import { UsuarioUseCase } from "./usuario.usecase";
 import { ReservaMapper } from "src/camada_mapper/reserva.mapper";
-import { strict } from "assert";
 
 @Injectable()
 export class ReservaUseCase {
-    
+
     constructor(
         @InjectRepository(ReservaEntity)
         private repository: Repository<ReservaEntity>,
         private salaUseCase: SalaUseCase,
         private usuarioUseCase: UsuarioUseCase
-    ){}
-    
+    ) { }
+
     async deletar(id: string) {
-      this.consultarPorId(id);
-      try {
-        await this.repository.delete(id);
-      } catch(error) {
-        console.error(error.message);
-        throw new HttpException('Erro ao deletar reserva', HttpStatus.INTERNAL_SERVER_ERROR);
-      }
+        this.consultarPorId(id);
+        try {
+            await this.repository.delete(id);
+        } catch (error) {
+            console.error(error.message);
+            throw new HttpException('Erro ao deletar reserva', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    async cadastrar(novaReserva: Reserva): Promise<Reserva>  {
+    
+    async cadastrar(novaReserva: Reserva): Promise<Reserva> {
         this.validarDataReserva(novaReserva.getDataHoraInicio(), novaReserva.getDataHoraTermino());
 
         const ususario = await this.usuarioUseCase.consultarPorId(novaReserva.getUsuario().getId());
@@ -39,7 +39,7 @@ export class ReservaUseCase {
 
         let reservaSalva;
 
-        try{
+        try {
             reservaSalva = ReservaMapper.paraDomain(await this.repository.save(ReservaMapper.paraEntity(novaReserva)));
         } catch (error) {
             console.log(error.message);
@@ -48,11 +48,11 @@ export class ReservaUseCase {
 
         return reservaSalva;
     }
-    
-    async consultarPorId(id: string): Promise<Reserva>{
+
+    async consultarPorId(id: string): Promise<Reserva> {
         let reserva;
         try {
-            reserva = await this.repository.find({where: {id}});
+            reserva = await this.repository.find({ where: { id } });
         } catch (error) {
             console.error(error.message);
             throw new HttpException('Erro ao consultar reserva por id', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -60,28 +60,40 @@ export class ReservaUseCase {
 
         return ReservaMapper.paraDomain(reserva);
     }
-    
-    listarPorId(idUsuario: string): import("../camada_domain/reserva").Reserva[] | PromiseLike<import("../camada_domain/reserva").Reserva[]> {
-        throw new Error("Method not implemented.");
+
+    async listarPorId(idUsuario: string): Promise<Array<Reserva>> {
+        let reservas;
+
+        try {
+            reservas = await this.repository.createQueryBuilder('reserva')
+                .innerJoinAndSelect('reserva.usuario', 'usuario')
+                .where('usuario.id = :idUsuario', { idUsuario })
+                .getMany()
+        } catch (error) {
+            console.error(error.message);
+            throw new HttpException('Erro ao consultar reservas por usuario', HttpStatus.INTERNAL_SERVER_ERROR); ''
+        }
+        
+        return reservas;
     }
 
 
     async validarDataReserva(dataHoraInicio: Date, dataHoraTermino: Date) {
         const datasReservasJaExistentes = ReservaMapper.paraDomains(
-            await this.repository.find({where: {dataHoraInicio}}))
-                .sort(
-                    (a, b) => a.getDataHoraInicio().getTime() - b.getDataHoraInicio().getTime()
-                );
+            await this.repository.find({ where: { dataHoraInicio } }))
+            .sort(
+                (a, b) => a.getDataHoraInicio().getTime() - b.getDataHoraInicio().getTime()
+            );
 
         datasReservasJaExistentes.map(reserva => {
-            if(!(dataHoraInicio.getHours() <= reserva.getDataHoraInicio().getHours() - 1)
+            if (!(dataHoraInicio.getHours() <= reserva.getDataHoraInicio().getHours() - 1)
                 || !(dataHoraInicio.getHours() >= reserva.getDataHoraTermino().getHours() + 1)
             ) {
                 throw new HttpException('Horario indisponível', HttpStatus.BAD_REQUEST);
             }
         })
-        
+
     }
-    
+
 
 }

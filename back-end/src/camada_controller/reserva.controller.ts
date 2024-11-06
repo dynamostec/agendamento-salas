@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post } from "@nestjs/common";
 import { ReservaDto } from "./dto/reserva.dto";
 import { ReservaMapper } from "src/camada_mapper/reserva.mapper";
-import { Reserva } from "src/camada_domain/reserva";
 import { ReservaUseCase } from "src/camada_use_case/reserva.usecase";
 
 @Controller('reservas')
