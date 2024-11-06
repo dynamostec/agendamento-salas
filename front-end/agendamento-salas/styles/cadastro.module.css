@@ -11,13 +11,13 @@
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 4px 8px #5B9BA6;
-    width: 660px; 
+    width: 860px; 
     max-width: 90%;
     text-align: center;
 }
   
 .headerTitle {
-    font-size: 48px;
+    font-size: 64px;
     color: #2C3E4F;
     align-items: start;
 }
@@ -25,12 +25,11 @@
 .headerDescription {
     color: #5C5C5C;
     margin-bottom: 20px;
-    font-size: 16px;
+    font-size: 20px;
 }
   
 .formGroup {
     display: flex;
-    flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
 }
@@ -43,17 +42,17 @@
     font-size: 15px;
     color: #A6A6A6;
 }
-
-.linkContainer {
+  
+.checkboxContainer {
     display: flex;
-    justify-content: flex-start;
+    align-items: center;
     margin-bottom: 20px;
-}
-
-.forgotPassword {
-    color: #FF6F91;
     font-size: 0.9rem;
-    text-decoration: none;
+    color: #666;
+}
+  
+.checkboxContainer input {
+    margin-right: 8px;
 }
   
 .submitButton {
@@ -63,11 +62,16 @@
     width: 230px;
     height: 55px;
     border-radius: 50px;
-    font-size: 24px;
+    font-size: 36px;
     cursor: pointer;
 }
-  
-.errorMessage {
-    color: red;
-    margin-bottom: 20px;
+
+.admin{
+    color: #5C5C5C;
+    font-size: 20px;
+}
+
+.errorMessage{
+    color: #FF6F91;
+    padding-bottom: 5px;
 }

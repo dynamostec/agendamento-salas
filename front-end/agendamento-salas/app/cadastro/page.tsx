@@ -1,7 +1,12 @@
+'use client';
+
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '../../styles/cadastro.module.css';
 
 export default function Cadastro() {
+  const router = useRouter();
+
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -31,6 +36,7 @@ export default function Cadastro() {
     limparFormulario();
   };
 
+
   // Função para limpar os campos do formulário
   const limparFormulario = () => {
     setNome('');
@@ -39,6 +45,13 @@ export default function Cadastro() {
     setConfirmarSenha('');
     setIsAdmin(false);
     setMensagemErro('');
+  };
+
+  // Verifica se o usuario preencheu todos os campos para então redirecionar
+  const handleLoginRedirect = () => {
+
+    if(nome!= '' && email!='' && senha === confirmarSenha)
+      router.push('/login');
   };
 
   return (
@@ -89,7 +102,7 @@ export default function Cadastro() {
             />
             <label className={styles.admin} htmlFor="admin">Criar usuário como Administrador</label>
           </div>
-          <button type="submit" className={styles.submitButton}>Cadastrar</button>
+          <button type="submit" className={styles.submitButton} onClick={handleLoginRedirect}>Cadastrar</button>
         </form>
       </div>
     </div>
