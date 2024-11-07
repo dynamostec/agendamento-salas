@@ -1,0 +1,74 @@
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, #AAF1E3, #7ABACD);
+}
+  
+.card {
+    width: 800px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+  
+.card h2 {
+    font-size: 48px;
+    color: #2C3E4F;
+    align-items: start;
+}
+  
+.card p {
+    color: #5C5C5C;
+    margin-bottom: 20px;
+    padding: 0 25px 0 25px;
+    font-size: 16px;
+}
+  
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+.enter {
+    background-color: #FF6F91;
+    color: #2C3E4F;
+    border: none;
+    width: 230px;
+    height: 55px;
+    border-radius: 50px;
+    font-size: 24px;
+    cursor: pointer;
+}
+  
+.register {
+    background-color: #FF6F91;
+    color: #2C3E4F;
+    border: none;
+    width: 230px;
+    height: 55px;
+    border-radius: 50px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.enter:hover{
+    background-color: #fd97af;
+    color: #828383;
+}
+
+.register:hover{
+    background-color: #fd97af;
+    color: #828383;
+}
