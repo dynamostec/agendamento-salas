@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import styles from '../styles/home.module.css';
+import styles from '../styles/page.module.css';
 
 export default function HomePage() {
   const router = useRouter();
