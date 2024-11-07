@@ -26,13 +26,13 @@ export class ReservaUseCase {
             throw new HttpException('Erro ao deletar reserva', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     async cadastrar(novaReserva: Reserva): Promise<Reserva> {
-        this.validarDataReserva(novaReserva.getDataHoraInicio(), novaReserva.getDataHoraTermino());
+        this.validarDataReserva(novaReserva.getSala().getId(), novaReserva.getDataHoraInicio(), novaReserva.getDataHoraTermino());
 
         const ususario = await this.usuarioUseCase.consultarPorId(novaReserva.getUsuario().getId());
 
-        const sala = await this.salaUseCase.consultarPorId(novaReserva.getUsuario().getId());
+        const sala = await this.salaUseCase.consultarPorId(novaReserva.getId());
 
         novaReserva.setUsuario(ususario);
         novaReserva.setSala(sala);
@@ -52,10 +52,18 @@ export class ReservaUseCase {
     async consultarPorId(id: string): Promise<Reserva> {
         let reserva;
         try {
-            reserva = await this.repository.find({ where: { id } });
+            reserva = await this.repository.findOne({
+                where: { id },
+                relations: ['usuario', 'sala']
+            });
+
         } catch (error) {
             console.error(error.message);
             throw new HttpException('Erro ao consultar reserva por id', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (reserva === undefined) {
+            throw new HttpException('Reserva não encontrada por id', HttpStatus.NOT_FOUND);
         }
 
         return ReservaMapper.paraDomain(reserva);
@@ -67,32 +75,59 @@ export class ReservaUseCase {
         try {
             reservas = await this.repository.createQueryBuilder('reserva')
                 .innerJoinAndSelect('reserva.usuario', 'usuario')
+                .innerJoinAndSelect('reserva.sala', 'sala')
+                .innerJoinAndSelect('sala.usuarioAdministrador', 'usuarioAdministrador')
                 .where('usuario.id = :idUsuario', { idUsuario })
                 .getMany()
         } catch (error) {
             console.error(error.message);
-            throw new HttpException('Erro ao consultar reservas por usuario', HttpStatus.INTERNAL_SERVER_ERROR); ''
+            throw new HttpException('Erro ao consultar reservas por usuario', HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        
-        return reservas;
+
+        if (reservas.length === 0) {
+            throw new HttpException('Nenhuma reserva com esse id usuario encontrada', HttpStatus.NOT_FOUND);
+        }
+
+        return ReservaMapper.paraDomains(reservas);
     }
 
 
-    async validarDataReserva(dataHoraInicio: Date, dataHoraTermino: Date) {
-        const datasReservasJaExistentes = ReservaMapper.paraDomains(
-            await this.repository.find({ where: { dataHoraInicio } }))
-            .sort(
-                (a, b) => a.getDataHoraInicio().getTime() - b.getDataHoraInicio().getTime()
+    async validarDataReserva(idSala: string, dataHoraInicio: Date, dataHoraTermino: Date) {
+        let reservasEntitis = await this.repository.createQueryBuilder('reserva')
+            .innerJoinAndSelect('reserva.usuario', 'usuario')
+            .innerJoinAndSelect('reserva.sala', 'sala')
+            .innerJoinAndSelect('sala.usuarioAdministrador', 'usuarioAdministrador')
+            .where('sala.id = :idSala', { idSala })
+            .orderBy('reserva.dataHoraInicio', 'ASC') 
+            .getMany();
+
+
+        let reservas = ReservaMapper.paraDomains(reservasEntitis);
+
+        const reservasNaData = reservas.filter(reserva => {
+
+            const inicioReserva = new Date(reserva.getDataHoraInicio());
+            const terminoReserva = new Date(reserva.getDataHoraTermino());
+            const inicioData = new Date(dataHoraInicio);
+            const terminoData = new Date(dataHoraTermino);
+
+            const inicioReservaMinutos = inicioReserva.getUTCHours() * 60 + inicioReserva.getUTCMinutes();
+            const terminoReservaMinutos = terminoReserva.getUTCHours() * 60 + terminoReserva.getUTCMinutes();
+            const inicioDataMinutos = inicioData.getUTCHours() * 60 + inicioData.getUTCMinutes();
+            const terminoDataMinutos = terminoData.getUTCHours() * 60 + terminoData.getUTCMinutes();
+
+            const inicioReservaComMargem = inicioReservaMinutos - 60;
+            const terminoReservaComMargem = terminoReservaMinutos + 60;
+
+            return (
+                terminoDataMinutos <= inicioReservaComMargem ||
+                inicioDataMinutos >= terminoReservaComMargem
             );
+        });
 
-        datasReservasJaExistentes.map(reserva => {
-            if (!(dataHoraInicio.getHours() <= reserva.getDataHoraInicio().getHours() - 1)
-                || !(dataHoraInicio.getHours() >= reserva.getDataHoraTermino().getHours() + 1)
-            ) {
-                throw new HttpException('Horario indisponível', HttpStatus.BAD_REQUEST);
-            }
-        })
-
+        if (reservasNaData.length === 0 && reservas.length > 0) {
+            throw new HttpException('Horario indisponível', HttpStatus.BAD_REQUEST);
+        }
     }
 
 

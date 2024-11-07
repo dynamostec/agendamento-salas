@@ -20,7 +20,7 @@ export class Sala {
         this.descricao = descricao;
     }
 
-    private id: string;
+    id: string;
     private nome: string;
     private capacidade: number;
     private localizacao: Endereco;

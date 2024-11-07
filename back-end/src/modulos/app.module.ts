@@ -5,11 +5,13 @@ import { SalaModule } from './sala.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DbConfigService } from 'src/config/db.config.service';
+import { ReservaModule } from './reserva.module';
 
 @Module({
   imports: [
     UsuarioModule,
     SalaModule,
+    ReservaModule,
     ConfigModule.forRoot({
       isGlobal: true
     }),
