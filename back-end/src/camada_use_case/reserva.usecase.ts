@@ -6,6 +6,8 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { SalaUseCase } from "./sala.usecase";
 import { UsuarioUseCase } from "./usuario.usecase";
 import { ReservaMapper } from "src/camada_mapper/reserva.mapper";
+import { EmailUseCase } from "./email.usecase";
+import { TokenUseCase } from "./token.usecase";
 
 @Injectable()
 export class ReservaUseCase {
@@ -14,7 +16,9 @@ export class ReservaUseCase {
         @InjectRepository(ReservaEntity)
         private repository: Repository<ReservaEntity>,
         private salaUseCase: SalaUseCase,
-        private usuarioUseCase: UsuarioUseCase
+        private usuarioUseCase: UsuarioUseCase,
+        private emailUseCase: EmailUseCase,
+        private tokenUseCase: TokenUseCase
     ) { }
 
     async deletar(id: string) {
@@ -45,6 +49,9 @@ export class ReservaUseCase {
             console.log(error.message);
             throw new HttpException('Erro ao salvar sala', HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        const token = this.tokenUseCase.gerarToken(ususario.getEmail());
+        this.emailUseCase.enviarEmail(ususario.getEmail(), token);
 
         return reservaSalva;
     }
