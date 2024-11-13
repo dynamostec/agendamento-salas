@@ -8,23 +8,23 @@ export class EmailUseCase {
 
     private trasporter;
 
-    constructor(private usuarioUsCase: UsuarioUseCase) {
-        this.trasporter = nodemailer.createTrasport({
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
-            auth: {
-                user: 'chatcesu@gmail.com',
-                pass: 'dztn yprc obyt tcpi'
-            },
-        });
-    }
+    // constructor(private usuarioUsCase: UsuarioUseCase) {
+    //     this.trasporter = nodemailer.createTrasport({
+    //         host: 'smtp.gmail.com',
+    //         port: 465,
+    //         secure: true,
+    //         auth: {
+    //             user: 'chatcesu@gmail.com',
+    //             pass: 'dztn yprc obyt tcpi'
+    //         },
+    //     });
+    // }
     
     async enviarEmail(emailUsuario: string, token: string) {
     
         try{
             await this.trasporter.sendMail({
-                from: "Dynamos quantumsquadti@gmail.com",
+                from: "Dynamos dynamos.tec@gmail.com",
                 to: emailUsuario,
                 subject: "Confirmação de reserva",
                 text: `Olá,
@@ -34,7 +34,7 @@ export class EmailUseCase {
                 Equipe Dynamos`,
                 html: `
                     <p>Olá,</p>
-                    <p>Sua reserva foi computada com sucesso</p>
+                    <p>Sua reserva foi computada com sucesso !</p>
                     <br><br>
                     <p>Atenciosamente,</p>
                     <p>Equipe Dynamos</p>

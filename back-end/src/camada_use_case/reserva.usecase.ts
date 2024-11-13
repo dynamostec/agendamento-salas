@@ -50,8 +50,8 @@ export class ReservaUseCase {
             throw new HttpException('Erro ao salvar sala', HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        const token = this.tokenUseCase.gerarToken(ususario.getEmail());
-        this.emailUseCase.enviarEmail(ususario.getEmail(), token);
+        // const token = this.tokenUseCase.gerarToken(ususario.getEmail());
+        // this.emailUseCase.enviarEmail(ususario.getEmail(), token);
 
         return reservaSalva;
     }
@@ -100,42 +100,47 @@ export class ReservaUseCase {
 
 
     async validarDataReserva(idSala: string, dataHoraInicio: Date, dataHoraTermino: Date) {
-        let reservasEntitis = await this.repository.createQueryBuilder('reserva')
+        // Buscar reservas existentes da sala específica e do mesmo dia que a nova reserva
+        const reservasEntitis = await this.repository.createQueryBuilder('reserva')
             .innerJoinAndSelect('reserva.usuario', 'usuario')
             .innerJoinAndSelect('reserva.sala', 'sala')
-            .innerJoinAndSelect('sala.usuarioAdministrador', 'usuarioAdministrador')
             .where('sala.id = :idSala', { idSala })
-            .orderBy('reserva.dataHoraInicio', 'ASC') 
+            .andWhere('DATE(reserva.dataHoraInicio) = DATE(:dataHoraInicio)', { dataHoraInicio })
+            .orderBy('reserva.dataHoraInicio', 'ASC')
             .getMany();
 
+        // Mapeando as entidades para objetos de domínio, se necessário
 
-        let reservas = ReservaMapper.paraDomains(reservasEntitis);
+        if (reservasEntitis.length > 0) {
+            const reservas = ReservaMapper.paraDomains(reservasEntitis);
 
-        const reservasNaData = reservas.filter(reserva => {
+            const inicioDataMinutos = new Date(dataHoraInicio).getUTCHours() * 60 + new Date(dataHoraInicio).getUTCMinutes();
+            const terminoDataMinutos = new Date(dataHoraTermino).getUTCHours() * 60 + new Date(dataHoraTermino).getUTCMinutes();
 
-            const inicioReserva = new Date(reserva.getDataHoraInicio());
-            const terminoReserva = new Date(reserva.getDataHoraTermino());
-            const inicioData = new Date(dataHoraInicio);
-            const terminoData = new Date(dataHoraTermino);
+            // Filtrando as reservas para verificar sobreposição com margem de uma hora
+            const reservasNaData = reservas.filter(reserva => {
+                const inicioReserva = new Date(reserva.getDataHoraInicio());
+                const terminoReserva = new Date(reserva.getDataHoraTermino());
 
-            const inicioReservaMinutos = inicioReserva.getUTCHours() * 60 + inicioReserva.getUTCMinutes();
-            const terminoReservaMinutos = terminoReserva.getUTCHours() * 60 + terminoReserva.getUTCMinutes();
-            const inicioDataMinutos = inicioData.getUTCHours() * 60 + inicioData.getUTCMinutes();
-            const terminoDataMinutos = terminoData.getUTCHours() * 60 + terminoData.getUTCMinutes();
+                const inicioReservaMinutos = inicioReserva.getUTCHours() * 60 + inicioReserva.getUTCMinutes();
+                const terminoReservaMinutos = terminoReserva.getUTCHours() * 60 + terminoReserva.getUTCMinutes();
 
-            const inicioReservaComMargem = inicioReservaMinutos - 60;
-            const terminoReservaComMargem = terminoReservaMinutos + 60;
+                const inicioReservaComMargem = inicioReservaMinutos - 60; // Uma hora antes do início da reserva
+                const terminoReservaComMargem = terminoReservaMinutos + 60; // Uma hora após o término da reserva
 
-            return (
-                terminoDataMinutos <= inicioReservaComMargem ||
-                inicioDataMinutos >= terminoReservaComMargem
-            );
-        });
+                return !(
+                    (terminoDataMinutos <= inicioReservaComMargem) ||
+                    (inicioDataMinutos >= terminoReservaComMargem)
+                );
+            });
 
-        if (reservasNaData.length === 0 && reservas.length > 0) {
-            throw new HttpException('Horario indisponível', HttpStatus.BAD_REQUEST);
+            // Lançando a exceção caso haja conflito
+            if (reservasNaData.length > 0) {
+                throw new HttpException('Horário indisponível', HttpStatus.BAD_REQUEST);
+            }
         }
     }
+
 
 
 }
