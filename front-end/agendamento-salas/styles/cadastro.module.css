@@ -62,8 +62,9 @@
     width: 230px;
     height: 55px;
     border-radius: 50px;
-    font-size: 36px;
+    font-size: 24px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .admin{
