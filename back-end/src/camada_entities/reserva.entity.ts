@@ -22,10 +22,10 @@ export class ReservaEntity {
     @PrimaryGeneratedColumn('uuid')
     id:string;
 
-    @ManyToOne(() => UsuarioEntity)
+    @ManyToOne(() => UsuarioEntity, usuarioEntity => usuarioEntity.reserva)
     usuario:UsuarioEntity;
     
-    @ManyToOne(() => SalaEntity)
+    @ManyToOne(() => SalaEntity, salaEntity => salaEntity.reserva)
     sala:SalaEntity;
 
     @Column({ name: 'data_hora_inicio', nullable: false })

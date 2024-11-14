@@ -36,7 +36,7 @@ export class SalaUseCase {
             salaAtualizada = await this.repository.save(SalaMapper.paraEntity(salaExistente))
         } catch (error) {
             console.error(error.message);
-            throw new HttpException('Erro ao salvar sala', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Erro ao editar sala', HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return SalaMapper.paraDomain(salaAtualizada);
     }
@@ -57,11 +57,11 @@ export class SalaUseCase {
 
         const usuario = await this.usuarioUseCase.consultarPorId(novaSala.getUsuarioAdministrador().getId());
 
-        if (usuario.tipoUsuario != TipoUsuario.ADMIN) {
+        if (usuario.getTipoUsuario() != TipoUsuario.ADMIN) {
             throw new HttpException('Usuário não administrador não pode cadastrar salas', HttpStatus.BAD_REQUEST);
         }
 
-        novaSala.setUsuarioAdministrador(UsuarioMapper.paraDomain(usuario));
+        novaSala.setUsuarioAdministrador(usuario);
 
         let novaSalaSalva;
 

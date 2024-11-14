@@ -1,7 +1,9 @@
 import { Endereco } from "src/camada_domain/endereco";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UsuarioEntity } from "./usuario.entity";
 import { EnderecoEntity } from "./endereco.entity";
+import { ReservaEntity } from "./reserva.entity";
+import { Reserva } from "src/camada_domain/reserva";
 
 @Entity({ name: 'salas' })
 export class SalaEntity {
@@ -34,7 +36,10 @@ export class SalaEntity {
     @Column(() => EnderecoEntity)
     localizacao: EnderecoEntity
 
-    @ManyToOne(() => UsuarioEntity)
+    @OneToMany(() => ReservaEntity, reservaEntity => reservaEntity.sala)
+    reserva: ReservaEntity
+
+    @ManyToOne(() => UsuarioEntity, usuarioEntity => usuarioEntity.sala)
     usuarioAdministrador:UsuarioEntity
 
     @Column({ name: 'descricao', length: 100, nullable: false})

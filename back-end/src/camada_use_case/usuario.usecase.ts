@@ -14,8 +14,8 @@ export class UsuarioUseCase {
     private repository: Repository<UsuarioEntity>
   ) {}
 
-  async consultarPorId(id: string): Promise<UsuarioEntity> {
-    return await this.repository.findOne({ where: { id } });
+  async consultarPorId(id: string): Promise<Usuario> {
+    return UsuarioMapper.paraDomain(await this.repository.findOne({ where: { id } }));
   }
 
   async cadastrar(novoUsuario: Usuario): Promise<Usuario> {
@@ -56,13 +56,12 @@ export class UsuarioUseCase {
   }
 
   async editarSenha(id: string, novaSenha: string): Promise<Usuario> {
-    const senhaExistente = await this.consultarPorId(id);
-    const senhaNova = UsuarioMapper.paraDomain(senhaExistente);
-    senhaNova.setSenha(novaSenha);
+    const usuarioExistene = await this.consultarPorId(id);
+    usuarioExistene.setSenha(novaSenha);
     let senhaAtualizada;
 
     try {
-      senhaAtualizada = await this.repository.save(UsuarioMapper.paraEntity(senhaNova));
+      senhaAtualizada = await this.repository.save(UsuarioMapper.paraEntity(usuarioExistene));
     } catch (error) {
       console.error(error.message);
       throw new HttpException(
