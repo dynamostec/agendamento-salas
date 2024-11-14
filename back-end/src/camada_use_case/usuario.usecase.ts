@@ -72,4 +72,8 @@ export class UsuarioUseCase {
     }
     return UsuarioMapper.paraDomain(senhaAtualizada);
   }
+
+  async pesquisaPorEmail(email: string, senha: string): Promise<UsuarioEntity> {
+    return await this.repository.findOne({ where: { email, senha } });
+  }
 }
