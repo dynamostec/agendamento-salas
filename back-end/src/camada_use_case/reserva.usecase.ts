@@ -56,10 +56,12 @@ export class ReservaUseCase {
     async consultarPorId(id: string): Promise<Reserva> {
         let reserva;
         try {
-            reserva = await this.repository.findOne({
-                where: { id },
-                relations: ['usuario', 'sala']
-            });
+            reserva = await this.repository.createQueryBuilder('reserva')
+                .innerJoinAndSelect('reserva.usuario', 'usuario')
+                .innerJoinAndSelect('reserva.sala', 'sala')
+                .innerJoinAndSelect('sala.usuarioAdministrador', 'usuarioAdministrador')
+                .where('reserva.id = :id', { id })
+                .getOne();
 
         } catch (error) {
             console.error(error.message);
