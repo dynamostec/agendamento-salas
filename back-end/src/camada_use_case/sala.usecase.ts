@@ -36,7 +36,7 @@ export class SalaUseCase {
             salaAtualizada = await this.repository.save(SalaMapper.paraEntity(salaExistente))
         } catch (error) {
             console.error(error.message);
-            throw new HttpException('Erro ao salvar sala', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Erro ao editar sala', HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return SalaMapper.paraDomain(salaAtualizada);
     }

@@ -5,8 +5,6 @@ import { UsuarioEntity } from "src/camada_entities/usuario.entity";
 export class UsuarioMapper {
 
     static paraDomain(entity: UsuarioEntity): Usuario {
-        console.log(entity);
-        console.log(entity.id);
         return new Usuario(
             entity.id, 
             entity.nome, 

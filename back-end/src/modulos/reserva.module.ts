@@ -7,12 +7,11 @@ import { UsuarioEntity } from "src/camada_entities/usuario.entity";
 import { EmailUseCase } from "src/camada_use_case/email.usecase";
 import { ReservaUseCase } from "src/camada_use_case/reserva.usecase";
 import { SalaUseCase } from "src/camada_use_case/sala.usecase";
-import { TokenUseCase } from "src/camada_use_case/token.usecase";
 import { UsuarioUseCase } from "src/camada_use_case/usuario.usecase";
 
 @Module({
     imports: [TypeOrmModule.forFeature([ReservaEntity, SalaEntity, UsuarioEntity])],
     controllers: [ReservaController],
-    providers: [ReservaUseCase, SalaUseCase, UsuarioUseCase, EmailUseCase, TokenUseCase]
+    providers: [ReservaUseCase, SalaUseCase, UsuarioUseCase, EmailUseCase]
 })
 export class ReservaModule {}

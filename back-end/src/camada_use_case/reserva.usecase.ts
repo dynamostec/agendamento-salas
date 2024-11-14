@@ -7,7 +7,6 @@ import { SalaUseCase } from "./sala.usecase";
 import { UsuarioUseCase } from "./usuario.usecase";
 import { ReservaMapper } from "src/camada_mapper/reserva.mapper";
 import { EmailUseCase } from "./email.usecase";
-import { TokenUseCase } from "./token.usecase";
 
 @Injectable()
 export class ReservaUseCase {
@@ -17,8 +16,7 @@ export class ReservaUseCase {
         private repository: Repository<ReservaEntity>,
         private salaUseCase: SalaUseCase,
         private usuarioUseCase: UsuarioUseCase,
-        private emailUseCase: EmailUseCase,
-        private tokenUseCase: TokenUseCase
+        private emailUseCase: EmailUseCase
     ) { }
 
     async deletar(id: string) {
@@ -32,7 +30,7 @@ export class ReservaUseCase {
     }
 
     async cadastrar(novaReserva: Reserva): Promise<Reserva> {
-        this.validarDataReserva(novaReserva.getSala().getId(), novaReserva.getDataHoraInicio(), novaReserva.getDataHoraTermino());
+        await this.validarDataReserva(novaReserva.getSala().getId(), novaReserva.getDataHoraInicio(), novaReserva.getDataHoraTermino());
 
         const ususario = await this.usuarioUseCase.consultarPorId(novaReserva.getUsuario().getId());
 
@@ -47,11 +45,10 @@ export class ReservaUseCase {
             reservaSalva = ReservaMapper.paraDomain(await this.repository.save(ReservaMapper.paraEntity(novaReserva)));
         } catch (error) {
             console.log(error.message);
-            throw new HttpException('Erro ao salvar sala', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Erro ao salvar reserva', HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        // const token = this.tokenUseCase.gerarToken(ususario.getEmail());
-        // this.emailUseCase.enviarEmail(ususario.getEmail(), token);
+        this.emailUseCase.enviarEmail(ususario, novaReserva);
 
         return reservaSalva;
     }
@@ -100,16 +97,14 @@ export class ReservaUseCase {
 
 
     async validarDataReserva(idSala: string, dataHoraInicio: Date, dataHoraTermino: Date) {
-        // Buscar reservas existentes da sala específica e do mesmo dia que a nova reserva
         const reservasEntitis = await this.repository.createQueryBuilder('reserva')
             .innerJoinAndSelect('reserva.usuario', 'usuario')
             .innerJoinAndSelect('reserva.sala', 'sala')
+            .innerJoinAndSelect('sala.usuarioAdministrador', 'usuarioAdministrador')
             .where('sala.id = :idSala', { idSala })
             .andWhere('DATE(reserva.dataHoraInicio) = DATE(:dataHoraInicio)', { dataHoraInicio })
             .orderBy('reserva.dataHoraInicio', 'ASC')
             .getMany();
-
-        // Mapeando as entidades para objetos de domínio, se necessário
 
         if (reservasEntitis.length > 0) {
             const reservas = ReservaMapper.paraDomains(reservasEntitis);
@@ -117,7 +112,7 @@ export class ReservaUseCase {
             const inicioDataMinutos = new Date(dataHoraInicio).getUTCHours() * 60 + new Date(dataHoraInicio).getUTCMinutes();
             const terminoDataMinutos = new Date(dataHoraTermino).getUTCHours() * 60 + new Date(dataHoraTermino).getUTCMinutes();
 
-            // Filtrando as reservas para verificar sobreposição com margem de uma hora
+            
             const reservasNaData = reservas.filter(reserva => {
                 const inicioReserva = new Date(reserva.getDataHoraInicio());
                 const terminoReserva = new Date(reserva.getDataHoraTermino());
@@ -125,8 +120,8 @@ export class ReservaUseCase {
                 const inicioReservaMinutos = inicioReserva.getUTCHours() * 60 + inicioReserva.getUTCMinutes();
                 const terminoReservaMinutos = terminoReserva.getUTCHours() * 60 + terminoReserva.getUTCMinutes();
 
-                const inicioReservaComMargem = inicioReservaMinutos - 60; // Uma hora antes do início da reserva
-                const terminoReservaComMargem = terminoReservaMinutos + 60; // Uma hora após o término da reserva
+                const inicioReservaComMargem = inicioReservaMinutos - 60; 
+                const terminoReservaComMargem = terminoReservaMinutos + 60; 
 
                 return !(
                     (terminoDataMinutos <= inicioReservaComMargem) ||
@@ -134,7 +129,6 @@ export class ReservaUseCase {
                 );
             });
 
-            // Lançando a exceção caso haja conflito
             if (reservasNaData.length > 0) {
                 throw new HttpException('Horário indisponível', HttpStatus.BAD_REQUEST);
             }
