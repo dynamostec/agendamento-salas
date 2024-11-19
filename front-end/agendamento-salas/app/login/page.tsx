@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styles from '../../styles/login.module.css';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -23,7 +25,16 @@ export default function Login() {
 
     console.log(dadosLogin);
 
+    const router = useRouter();
+
     limparFormulario();
+
+    axios.post('https://localhost:3001/login', dadosLogin)
+      .then(response => {
+        console.log("Login bem-sucedido");
+        router.push('/home')
+        limparFormulario();
+      })
   };
 
   // Função para limpar os campos do formulário
@@ -32,6 +43,8 @@ export default function Login() {
     setSenha('');
     setMensagemErro('');
   };
+
+
 
   return (
     <div className={styles.body}>
