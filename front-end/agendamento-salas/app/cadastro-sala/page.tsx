@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styles from '../../styles/cadastroSalas.module.css';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function CadastroSalas() {
     const [salas, setSalas] = useState('');
@@ -19,7 +21,7 @@ export default function CadastroSalas() {
             return;
         }
 
-        const DadosCadastrosSalas = {
+        const dadosCadastrosSalas = {
             salas,
             capacidade,
             cep,
@@ -29,7 +31,15 @@ export default function CadastroSalas() {
             descricao
         };
 
-        console.log(DadosCadastrosSalas);
+        const router = useRouter();
+
+        axios.post('http://localhost:3001/salas', dadosCadastrosSalas)
+            .then(response => {
+                console.log('Cadastro de sala bem sucedido');
+                router.push('/home');
+            })
+
+        console.log(dadosCadastrosSalas);
 
         limparFormulario();
     };
