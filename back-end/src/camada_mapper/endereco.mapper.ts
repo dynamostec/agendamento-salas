@@ -31,6 +31,8 @@ export class EnderecoMapper {
     }
 
     static paraDomainDeDto(dto: EnderecoDto): Endereco {
+        console.log(dto);
+
         return new Endereco(
             dto.rua, 
             dto.cep, 

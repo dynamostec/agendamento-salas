@@ -1,56 +1,72 @@
+'use client'
+
 import { useState } from 'react';
 import styles from '../../styles/cadastroSalas.module.css';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function CadastroSalas() {
-    const [salas, setSalas] = useState('');
+    const [nome, setNome] = useState('');
     const [capacidade, setCapacidade] = useState('');
     const [cep, setCep] = useState('');
     const [cidade, setCidade] = useState('');
     const [estado, setEstado] = useState('');
-    const [endereco, setEndereco] = useState('');
+    const [rua, setRua] = useState('');
     const [descricao, setDescricao] = useState('');
     const [mensagemErro, setMensagemErro] = useState('');
+    const router = useRouter();
 
     const handleCadastroSalas = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (salas === '' || capacidade === '' || cep === '' || cidade === '' || estado === '' || endereco === '' || descricao === '') {
+        if (nome === '' || capacidade === '' || cep === '' || cidade === '' || estado === '' || rua === '' || descricao === '') {
             setMensagemErro('Por favor, preencha todos os campos.');
             return;
         }
 
-        const dadosCadastrosSalas = {
-            salas,
+        let dadosCadastrosSalas = {
+            nome,
             capacidade,
-            cep,
-            cidade,
-            estado,
-            endereco,
+            usuarioAdministrador: {
+                id: '',
+                nome: '',
+                email: '',
+                senha: '',
+                tipoUsuario: ''
+            },
+            localizacao: {
+                cep,
+                cidade,
+                estado,
+                rua,
+            },
             descricao
         };
 
-        const router = useRouter();
+        const idUsuario = localStorage.getItem('id-usuario');
 
-        axios.post('http://localhost:3001/salas', dadosCadastrosSalas)
+        if(idUsuario) {
+            dadosCadastrosSalas.usuarioAdministrador.id = idUsuario;
+
+            axios.post('http://localhost:3001/salas', dadosCadastrosSalas)
             .then(response => {
                 console.log('Cadastro de sala bem sucedido');
                 router.push('/home');
             })
 
-        console.log(dadosCadastrosSalas);
-
-        limparFormulario();
+            limparFormulario();
+        } else {
+            console.log('Id usuario nulo')
+        }
     };
 
     const limparFormulario = () => {
-        setSalas('');
+        setNome('');
         setCapacidade('');
         setCep('');
         setEstado('');
         setCidade('');
-        setEndereco('');
+        setRua('');
         setDescricao('');
         setMensagemErro('');
     };
@@ -66,8 +82,8 @@ export default function CadastroSalas() {
                         <input
                             type="text"
                             placeholder="Nome da Sala"
-                            value={salas}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSalas(e.target.value)}
+                            value={nome}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNome(e.target.value)}
                             required
                         />
                         <input
@@ -102,9 +118,9 @@ export default function CadastroSalas() {
                         />
                         <input
                             type="text"
-                            placeholder="Endereço"
-                            value={endereco}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEndereco(e.target.value)}
+                            placeholder="Rua"
+                            value={rua}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRua(e.target.value)}
                             required
                         />
                     </div>

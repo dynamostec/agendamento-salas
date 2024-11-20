@@ -1,3 +1,4 @@
+import { Endereco } from './../../camada_domain/endereco';
 
 export class EnderecoDto {
 
