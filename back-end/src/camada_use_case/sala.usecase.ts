@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SalaEntity } from 'src/camada_entities/sala.entity';
 import { Repository } from 'typeorm';
 import { TipoUsuario } from 'src/camada_domain/tipoUsario';
+import { UsuarioMapper } from 'src/camada_mapper/usuario.mapper';
 
 @Injectable()
 export class SalaUseCase {
@@ -35,13 +36,13 @@ export class SalaUseCase {
             salaAtualizada = await this.repository.save(SalaMapper.paraEntity(salaExistente))
         } catch (error) {
             console.error(error.message);
-            throw new HttpException('Erro ao salvar sala', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Erro ao editar sala', HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return SalaMapper.paraDomain(salaAtualizada);
     }
 
     async cadastrar(novaSala: Sala): Promise<Sala> {
-        const nome = novaSala._nome;
+        const nome = novaSala.getNome();
         let salaExistente;
         try {
             salaExistente = await this.repository.find({ where: { nome } });
@@ -50,17 +51,17 @@ export class SalaUseCase {
             throw new HttpException('Erro ao buscar sala por id', HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        if (salaExistente != null || salaExistente != undefined) {
+        if (salaExistente == null) {
             throw new HttpException('Sala com este nome já cadastrada', HttpStatus.BAD_REQUEST);
         }
 
-        const usuario = await this.usuarioUseCase.consultarPorId(novaSala._usuarioAdministrador._id);
+        const usuario = await this.usuarioUseCase.consultarPorId(novaSala.getUsuarioAdministrador().getId());
 
-        if (usuario._tipoUsuario != TipoUsuario.ADMIN) {
+        if (usuario.getTipoUsuario() != TipoUsuario.ADMIN) {
             throw new HttpException('Usuário não administrador não pode cadastrar salas', HttpStatus.BAD_REQUEST);
         }
 
-        novaSala._usuarioAdministrador = usuario;
+        novaSala.setUsuarioAdministrador(usuario);
 
         let novaSalaSalva;
 

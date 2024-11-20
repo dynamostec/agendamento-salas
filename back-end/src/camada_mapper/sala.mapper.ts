@@ -2,7 +2,7 @@ import { SalaEntity } from "src/camada_entities/sala.entity";
 import { UsuarioEntity } from "src/camada_entities/usuario.entity";
 import { UsuarioMapper } from "./usuario.mapper";
 import { Sala } from "src/camada_domain/sala";
-import { SalaDto } from "src/camada_controller/dto/salaDto";
+import { SalaDto } from "src/camada_controller/dto/sala.dto";
 import { EnderecoMapper } from "./endereco.mapper";
 
 export class SalaMapper {
@@ -24,26 +24,25 @@ export class SalaMapper {
 
     static paraEntity(domain: Sala): SalaEntity {
         return new SalaEntity(
-            domain._id, 
-            domain._nome, 
-            domain._capacidade, 
-            EnderecoMapper.paraEntity(domain._localizacao), 
-            UsuarioMapper.paraEntity(domain._usuarioAdministrador),
-            domain._descricao
+            domain.getId(), 
+            domain.getNome(), 
+            domain.getCapacidade(), 
+            EnderecoMapper.paraEntity(domain.getLocalizacao()), 
+            UsuarioMapper.paraEntity(domain.getUsuarioAdministrador()),
+            domain.getDescricao()
         );
     }
 
     static paraDto(domain: Sala): SalaDto {
         return new SalaDto(
-            domain._id, 
-            domain._nome, 
-            domain._capacidade, 
-            UsuarioMapper.paraDto(domain._usuarioAdministrador),
-            EnderecoMapper.paraDto(domain._localizacao), 
-            domain._descricao
+            domain.getId(), 
+            domain.getNome(), 
+            domain.getCapacidade(), 
+            UsuarioMapper.paraDto(domain.getUsuarioAdministrador()),
+            EnderecoMapper.paraDto(domain.getLocalizacao()), 
+            domain.getDescricao()
         );
     }
-    
     
     static paraDtos(domains: Array<Sala>): Array<SalaDto> {
         return domains.map(domain => this.paraDto(domain));

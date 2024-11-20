@@ -1,6 +1,9 @@
 import { TipoUsuario } from "./tipoUsario";
 
 export class Usuario {
+    alterarSenha(novaSenha: string) {
+        this.senha = novaSenha;
+    }
 
     constructor(
         id: string,
@@ -22,39 +25,39 @@ export class Usuario {
     private senha:string;
     private tipoUsuario:TipoUsuario;
 
-    get _id(): string {
+    getId(): string {
         return this.id;
     }
 
-    get _nome(): string {
+    getNome(): string {
         return this.nome;
     }
 
-    set _nome(value: string) {
+    setNome(value: string) {
         this.nome = value;
     }
 
-    get _email(): string {
+    getEmail(): string {
         return this.email;
     }
 
-    set _email(value: string) {
+    setEmail(value: string) {
         this.email = value;
     }
 
-    get _senha(): string {
+    getSenha(): string {
         return this.senha;
     }
 
-    set _senha(value: string) {
+    setSenha(value: string) {
         this.senha = value;
     }
 
-    get _tipoUsuario(): TipoUsuario {
+    getTipoUsuario(): TipoUsuario {
         return this.tipoUsuario;
     }
 
-    set _tipoUsuario(value: TipoUsuario) {
+    setTipoUsuario(value: TipoUsuario) {
         this.tipoUsuario = value;
     }
 }

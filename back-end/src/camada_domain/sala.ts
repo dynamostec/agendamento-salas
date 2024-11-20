@@ -3,10 +3,7 @@ import { Endereco } from "./endereco";
 import { Usuario } from "./usuario";
 
 export class Sala {
-    alterarDados(novosDados: Sala) {
-        throw new Error('Method not implemented.');
-    }
-
+    
     constructor(
         id: string,
         nome: string,
@@ -23,54 +20,62 @@ export class Sala {
         this.descricao = descricao;
     }
 
-    private id: string;
+    id: string;
     private nome: string;
     private capacidade: number;
     private localizacao: Endereco;
     private usuarioAdministrador: Usuario;
     private descricao: string;
 
-    get _id(): string {
+    alterarDados(novosDados: Sala) {
+        this.nome = novosDados.nome;
+        this.capacidade = novosDados.capacidade;
+        this.localizacao = novosDados.localizacao;
+        this.usuarioAdministrador = novosDados.usuarioAdministrador;
+        this.descricao = novosDados.descricao;
+    }
+
+    getId(): string {
         return this.id;
     }
 
-    get _nome(): string {
+    getNome(): string {
         return this.nome;
     }
 
-    set _nome(value: string) {
+    setNome(value: string) {
         this.nome = value;
     }
 
-    get _capacidade(): number {
+    getCapacidade(): number {
         return this.capacidade;
     }
 
-    set _capacidade(value: number) {
+    setCapacidade(value: number) {
         this.capacidade = value;
     }
 
-    get _localizacao(): Endereco {
+    getLocalizacao(): Endereco {
         return this.localizacao;
     }
 
-    set _localizacao(value: Endereco) {
+    setLocalizacao(value: Endereco) {
         this.localizacao = value;
     }
 
-    get _usuarioAdministrador(): Usuario {
+    getUsuarioAdministrador(): Usuario {
         return this.usuarioAdministrador;
     }
 
-    set _usuarioAdministrador(value: Usuario) {
+    setUsuarioAdministrador(value: Usuario) {
         this.usuarioAdministrador = value;
     }
 
-    get _descricao(): string {
+    getDescricao(): string {
         return this.descricao;
     }
 
-    set _descricao(value: string) {
+    setDescricao(value: string) {
         this.descricao = value;
     }
 }

@@ -18,35 +18,35 @@ export class Endereco {
     private cidade: string;
     private estado: string;
 
-    get _rua(): string {
+    getRua(): string {
         return this.rua;
     }
 
-    set _rua(value: string) {
+    setRua(value: string) {
         this.rua = value;
     }
 
-    get _cep(): string {
+    getCep(): string {
         return this.cep;
     }
 
-    set _cep(value: string) {
+    setCep(value: string) {
         this.cep = value;
     }
 
-    get _cidade(): string {
+    getCidade(): string {
         return this.cidade;
     }
 
-    set _cidade(value: string) {
+    setCidade(value: string) {
         this.cidade = value;
     }
 
-    get _estado(): string {
+    getEstado(): string {
         return this.estado;
     }
 
-    set _estado (value: string) {
+    setEstado (value: string) {
         this.estado = value;
     }
 }

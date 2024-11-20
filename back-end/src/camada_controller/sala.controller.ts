@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from "@nestjs/common";
-import { SalaDto } from "./dto/salaDto";
+import { SalaDto } from "./dto/sala.dto";
 import { SalaUseCase } from "src/camada_use_case/sala.usecase";
 import { SalaMapper } from "src/camada_mapper/sala.mapper";
 

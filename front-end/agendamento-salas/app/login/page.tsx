@@ -1,16 +1,20 @@
+'use client'
+
+
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import styles from '../../styles/login.module.css';
 
 export default function Login() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
 
-  // Função chamada ao enviar o formulário
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); 
+  const handleLogin = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
 
-    // Exemplo de validação básica
     if (email === '' || senha === '') {
       setMensagemErro('Por favor, preencha todos os campos.');
       return;
@@ -18,15 +22,23 @@ export default function Login() {
 
     const dadosLogin = {
       email,
-      senha
+      senha,
     };
 
-    console.log(dadosLogin);
+    try {
+      const response = await axios.post('http://localhost:3001/usuarios/login', dadosLogin); //*AJUSTAR*
 
-    limparFormulario();
+      if (response.status === 200) {
+        console.log('Login bem-sucedido:', response.data);
+        limparFormulario();
+        router.push('/home');
+      }
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+      setMensagemErro('Credenciais inválidas. Tente novamente.');
+    }
   };
 
-  // Função para limpar os campos do formulário
   const limparFormulario = () => {
     setEmail('');
     setSenha('');
@@ -38,14 +50,14 @@ export default function Login() {
       <div className={styles.container}>
         <h2 className={styles.headerTitle}>Login</h2>
         <p className={styles.headerDescription}>Digite os seus dados para realizar o login</p>
-        {mensagemErro && <p className={styles.errorMessage}>{mensagemErro}</p>} {/* Mensagem de erro */}
+        {mensagemErro && <p className={styles.errorMessage}>{mensagemErro}</p>}
         <form onSubmit={handleLogin}>
           <div className={styles.formGroup}>
             <input 
               type="email" 
               placeholder="Seu E-mail ..." 
               value={email} 
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               required 
             />
           </div>
@@ -54,7 +66,7 @@ export default function Login() {
               type="password" 
               placeholder="Sua Senha ..." 
               value={senha} 
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSenha(e.target.value)} 
+              onChange={(e) => setSenha(e.target.value)} 
               required
             />
           </div>

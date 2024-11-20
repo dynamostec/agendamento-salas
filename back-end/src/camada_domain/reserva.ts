@@ -17,45 +17,45 @@ export class Reserva {
         this.dataHoraTermino = dataHoraTermino;
     }
 
-    private id: string;
-    private usuario: Usuario;
-    private sala: Sala;
-    private dataHoraInicio: Date;
-    private dataHoraTermino: Date;
+    id: string;
+    usuario: Usuario;
+    sala: Sala;
+    dataHoraInicio: Date;
+    dataHoraTermino: Date;
 
-    get _id(): string {
+    getId(): string {
         return this.id;
     }
 
-    get _usuario(): Usuario {
+    getUsuario(): Usuario {
         return this.usuario;
     }
 
-    set _usuario(value: Usuario) {
+    setUsuario(value: Usuario) {
         this.usuario = value;
     }
 
-    get _sala(): Sala {
+    getSala(): Sala {
         return this.sala;
     }
 
-    set _sala(value: Sala) {
+    setSala(value: Sala) {
         this.sala = value;
     }
 
-    get _dataHoraInicio(): Date {
+    getDataHoraInicio(): Date {
         return this.dataHoraInicio;
     }
 
-    set _dataHoraInicio(value: Date) {
+    setDataHoraInicio(value: Date) {
         this.dataHoraInicio = value;
     }
 
-    get _dataHoraTermino(): Date {
+    getDataHoraTermino(): Date {
         return this.dataHoraTermino;
     }
 
-    set _dataHoraTermino(value: Date) {
+    setDataHoraTermino(value: Date) {
         this.dataHoraTermino = value;
     }
 }
