@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react';
 import styles from '../../styles/login.module.css';
 import axios from 'axios';
@@ -7,6 +9,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
+  const router = useRouter();
 
   // Função chamada ao enviar o formulário
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,16 +26,14 @@ export default function Login() {
       senha
     };
 
-    console.log(dadosLogin);
-
-    const router = useRouter();
+    // console.log(dadosLogin);
 
     limparFormulario();
 
-    axios.post('https://localhost:3001/login', dadosLogin)
+    axios.post('http://localhost:3001/login', dadosLogin)
       .then(response => {
         console.log("Login bem-sucedido");
-        router.push('/home')
+        router.push('/home');
         limparFormulario();
       })
   };
