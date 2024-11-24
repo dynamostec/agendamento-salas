@@ -1,14 +1,23 @@
+'use client'
+
 import { useState } from 'react';
 import styles from '../../styles/login.module.css';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
+  const router = useRouter();
+
+  const mudarSenha = () => {
+    router.push('mudar-senha');
+  }
 
   // Função chamada ao enviar o formulário
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     // Exemplo de validação básica
     if (email === '' || senha === '') {
@@ -21,9 +30,16 @@ export default function Login() {
       senha
     };
 
-    console.log(dadosLogin);
+    // console.log(dadosLogin);
 
     limparFormulario();
+
+    axios.post('http://localhost:3001/login', dadosLogin)
+      .then(response => {
+        console.log("Login bem-sucedido");
+        router.push('/home');
+        limparFormulario();
+      })
   };
 
   // Função para limpar os campos do formulário
@@ -33,6 +49,8 @@ export default function Login() {
     setMensagemErro('');
   };
 
+
+
   return (
     <div className={styles.body}>
       <div className={styles.container}>
@@ -41,25 +59,25 @@ export default function Login() {
         {mensagemErro && <p className={styles.errorMessage}>{mensagemErro}</p>} {/* Mensagem de erro */}
         <form onSubmit={handleLogin}>
           <div className={styles.formGroup}>
-            <input 
-              type="email" 
-              placeholder="Seu E-mail ..." 
-              value={email} 
+            <input
+              type="email"
+              placeholder="Seu E-mail ..."
+              value={email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-              required 
+              required
             />
           </div>
           <div className={styles.formGroup}>
-            <input 
-              type="password" 
-              placeholder="Sua Senha ..." 
-              value={senha} 
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSenha(e.target.value)} 
+            <input
+              type="password"
+              placeholder="Sua Senha ..."
+              value={senha}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSenha(e.target.value)}
               required
             />
           </div>
           <div className={styles.linkContainer}>
-            <a href="#" className={styles.forgotPassword}>Esqueci minha senha</a>
+            <a href="#" className={styles.forgotPassword} onClick={mudarSenha}>Esqueci minha senha</a>
           </div>
           <button type="submit" className={styles.submitButton}>Entrar</button>
         </form>

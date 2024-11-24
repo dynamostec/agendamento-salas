@@ -17,11 +17,11 @@ export class Reserva {
         this.dataHoraTermino = dataHoraTermino;
     }
 
-    private id: string;
-    private usuario: Usuario;
-    private sala: Sala;
-    private dataHoraInicio: Date;
-    private dataHoraTermino: Date;
+    id: string;
+    usuario: Usuario;
+    sala: Sala;
+    dataHoraInicio: Date;
+    dataHoraTermino: Date;
 
     getId(): string {
         return this.id;

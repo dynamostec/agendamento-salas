@@ -11,13 +11,13 @@
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 4px 8px #5B9BA6;
-    width: 660px; 
+    width: 860px; 
     max-width: 90%;
     text-align: center;
 }
   
 .headerTitle {
-    font-size: 48px;
+    font-size: 64px;
     color: #2C3E4F;
     align-items: start;
 }
@@ -25,7 +25,7 @@
 .headerDescription {
     color: #5C5C5C;
     margin-bottom: 20px;
-    font-size: 16px;
+    font-size: 20px;
 }
   
 .formGroup {
@@ -52,7 +52,7 @@
 
 .forgotPassword {
     color: #FF6F91;
-    font-size: 0.9rem;
+    font-size: 20px;
     text-decoration: none;
 }
   
@@ -65,6 +65,7 @@
     border-radius: 50px;
     font-size: 24px;
     cursor: pointer;
+    font-weight: bold;
 }
   
 .errorMessage {

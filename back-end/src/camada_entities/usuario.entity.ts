@@ -1,10 +1,11 @@
 
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { TipoUsuario } from 'src/camada_domain/tipoUsario';
+import { ReservaEntity } from './reserva.entity';
+import { SalaEntity } from './sala.entity';
 
 @Entity({ name: 'usuarios' })
 export class UsuarioEntity {
-
     constructor(
         id: string,
         nome: string,
@@ -38,6 +39,12 @@ export class UsuarioEntity {
         default: TipoUsuario.USER
     })
     tipoUsuario: TipoUsuario;
+
+    @OneToMany(() => ReservaEntity, reservaEntity => reservaEntity.usuario)
+    reserva: ReservaEntity;
+
+    @OneToMany(() => SalaEntity, salaEntity => salaEntity.usuarioAdministrador)
+    sala: SalaEntity;
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: string;

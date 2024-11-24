@@ -49,6 +49,8 @@ export class SalaMapper {
     }
 
     static paraDomainDeDto(dto: SalaDto): Sala {
+        console.log(dto);
+        
         return new Sala(
             dto.id, 
             dto.nome, 
