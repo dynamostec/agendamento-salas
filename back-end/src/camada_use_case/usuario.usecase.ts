@@ -55,8 +55,9 @@ export class UsuarioUseCase {
     return UsuarioMapper.paraDomain(usuarioSalvo);
   }
 
-  async editarSenha(id: string, novaSenha: string): Promise<Usuario> {
-    const usuarioExistene = await this.consultarPorId(id);
+  async editarSenha(email: string, novaSenha: string): Promise<Usuario> {
+    const usuarioExistene = await this.pesquisaPorEmail(email);
+
     usuarioExistene.setSenha(novaSenha);
     let senhaAtualizada;
 
@@ -72,7 +73,8 @@ export class UsuarioUseCase {
     return UsuarioMapper.paraDomain(senhaAtualizada);
   }
 
-  async pesquisaPorEmail(email: string): Promise<UsuarioEntity> {
-    return await this.repository.findOne({ where: { email} });
+  async pesquisaPorEmail(email: string): Promise<Usuario> {
+    const usuarioExistente = await this.repository.findOne({ where: { email} })
+    return UsuarioMapper.paraDomain(usuarioExistente);
   }
 }

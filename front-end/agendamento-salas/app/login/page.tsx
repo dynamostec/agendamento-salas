@@ -11,6 +11,10 @@ export default function Login() {
   const [mensagemErro, setMensagemErro] = useState('');
   const router = useRouter();
 
+  const mudarSenha = () => {
+    router.push('mudar-senha');
+  }
+
   // Função chamada ao enviar o formulário
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,7 +77,7 @@ export default function Login() {
             />
           </div>
           <div className={styles.linkContainer}>
-            <a href="#" className={styles.forgotPassword}>Esqueci minha senha</a>
+            <a href="#" className={styles.forgotPassword} onClick={mudarSenha}>Esqueci minha senha</a>
           </div>
           <button type="submit" className={styles.submitButton}>Entrar</button>
         </form>

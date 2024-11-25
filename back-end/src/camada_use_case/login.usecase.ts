@@ -12,7 +12,7 @@ export class LoginUseCase {
       throw new UnauthorizedException('Usuário não encontrado');
     }
 
-    if (usuario.senha !== senha) {
+    if (usuario.getSenha() !== senha) {
       throw new UnauthorizedException('Senha incorreta');
     }
 
