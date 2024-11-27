@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import styles from '../../styles/detalhes-sala.module.css';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 export default function DetalhesSala() {
 
@@ -40,7 +41,14 @@ export default function DetalhesSala() {
     descricao
   };
 
-  
+  axios.post('http://localhost:3001/detalhes-sala', dadosSala)
+    .then(response => {
+      console.log("Apresentação dos detalhes de sala.");
+      router.push('/home');
+    })
+    catch(error => {
+      console.error("Erro ao apresentar os detalhes da sala:", error);
+    });
 
   return (
     <div className={styles.page}>
