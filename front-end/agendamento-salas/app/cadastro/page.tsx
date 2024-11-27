@@ -47,6 +47,13 @@ export default function Cadastro() {
       console.error('Erro ao enviar dados para o servidor:', error);
       setMensagemErro('Erro ao enviar dados. Tente novamente.');
     }
+
+    axios.post('http://localhost:3001/usuarios', dadosCadastro)
+      .then(response => {
+        console.log("Cadastro realizado com sucesso.");
+        router.push('/login');
+        limparFormulario();
+      })
   };
 
   // Função para limpar os campos do formulário
