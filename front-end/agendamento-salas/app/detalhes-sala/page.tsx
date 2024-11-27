@@ -1,30 +1,14 @@
 'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../../styles/detalhes-sala.module.css';
-import { useRouter } from 'next/router';
 import axios from 'axios';
 
 export default function DetalhesSala() {
-
-  const [id] = useState('');
-  const [nome] = useState('');
-  const [capacidade] = useState('');
-  const [cep] = useState('');
-  const [cidade] = useState('');
-  const [estado] = useState('');
-  const [rua] = useState('');
-  const [descricao] = useState('');
-  const router = useRouter();
-  // exemplo de como pode ser puxado os dados:
-  // { dados }: { dados: any }
-  // colocar dentro do p individual de cada um: <p> {dados.nome} {dados.capacidade} {dados.cep} {dados.cidade} {dados.estado} {dados.endereco} {dados.descricao} </p>
-
-
-  let dadosSala = {
-    id,
-    nome,
-    capacidade,
+  const [sala, setSala] = useState({
+    id: '6c4b308c-574e-4809-b0d3-ffbbf7b97c86',
+    nome: '',
+    capacidade: '',
     usuarioAdministrador: {
       id: '',
       nome: '',
@@ -33,22 +17,21 @@ export default function DetalhesSala() {
       tipoUsuario: ''
     },
     localizacao: {
-      cep,
-      cidade,
-      estado,
-      rua,
+      cep: '',
+      cidade: '',
+      estado: '',
+      rua: '',
     },
-    descricao
-  };
+    descricao: ''
+  });
 
-  axios.post('http://localhost:3001/detalhes-sala', dadosSala)
+  useEffect(() => {
+    axios.get(`http://localhost:3001/salas/${sala.id}`)
     .then(response => {
-      console.log("Apresentação dos detalhes de sala.");
-      router.push('/home');
-    })
-    catch(error => {
-      console.error("Erro ao apresentar os detalhes da sala:", error);
+      setSala(response.data);
     });
+  }, []);
+  
 
   return (
     <div className={styles.page}>
@@ -56,17 +39,17 @@ export default function DetalhesSala() {
         <h1 className={styles.titulo}>Detalhes da Sala</h1>
         <div className={styles.infoContainer}>
           <div className={styles.infoBasica}>
-            <p><strong>Nome da sala:</strong> </p>
-            <p><strong>Capacidade:</strong> </p>
-            <p><strong>Administrador:</strong></p>
-            <p><strong>CEP:</strong> </p>
-            <p><strong>Cidade:</strong> </p>
-            <p><strong>Estado:</strong> </p>
-            <p><strong>Endereço:</strong> </p>
+            <p><strong>Nome da sala:</strong>{sala.nome}</p>
+            <p><strong>Capacidade:</strong>{sala.capacidade}</p>
+            <p><strong>Administrador:</strong>{sala.usuarioAdministrador.nome}</p>
+            <p><strong>CEP:</strong>{sala.localizacao.cep}</p>
+            <p><strong>Cidade:</strong>{sala.localizacao.cidade}</p>
+            <p><strong>Estado:</strong>{sala.localizacao.estado}</p>
+            <p><strong>Endereço:</strong>{sala.localizacao.rua}</p>
           </div>
           <div className={styles.descricao}>
             <strong>Descrição:</strong>
-            <p></p>
+            <p>{sala.descricao}</p>
           </div>
         </div>
       </div>
