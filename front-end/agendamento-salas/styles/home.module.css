@@ -1,4 +1,101 @@
-.body{
+
+.body {
+    font-family: Arial, sans-serif;
     background: linear-gradient(0.25turn, #C0F0E7, #B1D1DB);
+    padding: 20px; 
+    padding-top: 150px; 
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 90%;
+    max-width: 800px;
+}
+
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    width: 100%;
+}
+
+
+.listTitle, .reservationTitle {
+    font-size: 22px;
+    margin: 0; 
+    color: #333;
+    text-align: left; 
+}
+
+.listContainer, .reservationContainer {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+} 
+
+.roomCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+}
+
+.roomName {
+    font-size: 18px;
+    color: #333;
+}
+
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.infoButton {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.reserveButton {
+    background-color: #ffd54f;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reserveButton:hover {
+    background-color: #ffca28;
+}
+
+.cancelButton {
+    background-color: #ef9a9a;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancelButton:hover {
+    background-color: #e57373;
 }
