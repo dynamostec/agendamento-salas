@@ -1,0 +1,39 @@
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #E6F5F5;
+}
+
+.container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 1000px;
+}
+
+.headerTitle {
+    font-size: 44px;
+    margin-bottom: 20px;
+}
+
+.field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.value {
+    background: #E9E9E9;
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 60%;
+}
+
+.descricao {
+    height: 200px; 
+    overflow-y: auto; 
+}

@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { UsuarioDto } from './dto/usuario.dto';
 import { UsuarioMapper } from 'src/camada_mapper/usuario.mapper';
 import { UsuarioUseCase } from 'src/camada_use_case/usuario.usecase';
+import { emit } from 'process';
 
 @Controller('usuarios')
 export class UsuarioController {
@@ -14,11 +15,11 @@ export class UsuarioController {
     );
   }
 
-  @Patch('alterar-senha/:id')
+  @Patch('alterar-senha/:email')
   async alterarSenha(
-    @Param('id') id: string,
+    @Param('email') email: string,
     @Body('novaSenha') novaSenha: string,
   ): Promise<UsuarioDto> {
-    return UsuarioMapper.paraDto(await this.useCase.editarSenha(id, novaSenha));
+    return UsuarioMapper.paraDto(await this.useCase.editarSenha(email, novaSenha));
   }
 }

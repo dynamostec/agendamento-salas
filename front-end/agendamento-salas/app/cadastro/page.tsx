@@ -25,17 +25,21 @@ export default function Cadastro() {
       return;
     }
 
-    const TipoUsuario = isAdmin ? 'admin' : 'user';
+    isAdmin ? 'admin' : 'user';
 
     const dadosCadastro = {
-      id,
       nome,
       email,
       senha,
-      TipoUsuario,
+      tipoUsuario: '',
     };
 
     try {
+
+      if(isAdmin) {
+        dadosCadastro.tipoUsuario = 'admin'
+      } 
+
       const response = await axios.post('http://localhost:3001/usuarios', dadosCadastro);
 
       if (response.status === 201) {
