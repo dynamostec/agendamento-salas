@@ -40,9 +40,16 @@ export default function Login() {
         router.push('/home');
         limparFormulario();
       })
+
+    axios.get(`http://localhost:3001/usuarios/email/${dadosLogin.email}`)
+      .then(response => {
+        if(response) {
+          console.log(response.data);
+          localStorage.setItem('id-usuario', response.data.id);
+        }
+      })
   };
 
-  // Função para limpar os campos do formulário
   const limparFormulario = () => {
     setEmail('');
     setSenha('');

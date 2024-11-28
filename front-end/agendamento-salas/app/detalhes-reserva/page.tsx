@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react';  
+import { useEffect, useState } from 'react';
 import styles from '../../styles/detalhes-reserva.module.css';
 import axios from 'axios';
 
 export default function DetalhesReserva() {
-    
+
     const [reserva, setReserva] = useState({
-        id: '42873ff1-2a56-4a1b-acfe-eca048037085',
+        id: '',
         usuario: {
             id: '',
             nome: '',
@@ -41,8 +41,12 @@ export default function DetalhesReserva() {
     useEffect(() => {
         const fetchReserva = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/reservas/${reserva.id}`); 
-                setReserva(response.data); 
+                const idReserva = localStorage.getItem('id-reserva');
+
+                if (idReserva) {
+                    const response = await axios.get(`http://localhost:3001/reservas/${idReserva}`);
+                    setReserva(response.data);
+                }
             } catch (error) {
                 console.error('Erro ao carregar detalhes da reserva:', error);
             }
@@ -52,16 +56,25 @@ export default function DetalhesReserva() {
     }, []);
 
     const formatDate = (dateTime: string): string => {
-        const datePart = dateTime.split('T')[0]; 
+        const datePart: string = dateTime.split('T')[0];
         const [year, month, day] = datePart.split('-');
-        return `${day}/${month}/${year}`; 
+        return `${day}/${month}/${year}`;
+    };
+
+    const formatTime = (dateTime: string | undefined): string => {
+        if (!dateTime || !dateTime.includes('T')) {
+            return 'Horário inválido'; 
+        }
+    
+        const timePart = dateTime.split('T')[1]?.split('Z')[0];
+        if (!timePart) {
+            return 'Horário inválido'; 
+        }
+    
+        const [hour, minute] = timePart.split(':');
+        return `${hour}:${minute}`;
     };
     
-    const formatTime = (dateTime: string): string => {
-        const timePart = dateTime.split('T')[1]?.split('Z')[0]; 
-        const [hour, minute] = timePart.split(':'); 
-        return `${hour}:${minute}`; 
-    };
 
     return (
         <div className={styles.body}>

@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export default function DetalhesSala() {
   const [sala, setSala] = useState({
-    id: '6c4b308c-574e-4809-b0d3-ffbbf7b97c86',
+    id: '',
     nome: '',
     capacidade: '',
     usuarioAdministrador: {
@@ -26,12 +26,16 @@ export default function DetalhesSala() {
   });
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/salas/${sala.id}`)
-    .then(response => {
-      setSala(response.data);
-    });
+    const idSala = localStorage.getItem('id-sala');
+
+    if (idSala) {
+      axios.get(`http://localhost:3001/salas/${idSala}`)
+        .then(response => {
+          setSala(response.data);
+        });
+    }
   }, []);
-  
+
 
   return (
     <div className={styles.page}>
