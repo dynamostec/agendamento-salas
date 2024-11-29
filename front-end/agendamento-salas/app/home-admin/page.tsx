@@ -58,6 +58,11 @@ export default function Home() {
         router.push('cadastro-sala');
     };
 
+    const reservar = (id: string) => {
+        localStorage.setItem('id-sala', id);
+        router.push('/reserva-salas')
+    }
+
 
     return (
         <>
@@ -74,7 +79,7 @@ export default function Home() {
                 <div className={styles.container}>
                     {/* Lista de Salas */}
                     <div className={styles.section}>
-                        <h2 className={styles.listTitle}>Lista das salas</h2>
+                        <h2 className={styles.listTitle}>Minhas salas</h2>
                         <div className={styles.listContainer}>
                             {salas.map((sala) => (
                                 <div key={sala.id} className={styles.roomCard}>
@@ -86,7 +91,7 @@ export default function Home() {
                                         >
                                             <div className={styles.elipse}><p>i</p></div>
                                         </button>
-                                        <button className={styles.reserveButton}>Reservar</button>
+                                        <button onClick={() => reservar(sala.id)} className={styles.reserveButton}>Reservar</button>
                                     </div>
                                 </div>
                             ))}
@@ -95,7 +100,7 @@ export default function Home() {
 
                     {/* Minhas Reservas */}
                     <div className={styles.section}>
-                        <h2 className={styles.reservationTitle}>Minhas Reservas</h2>
+                        <h2 className={styles.reservationTitle}>Reservas com minhas salas</h2>
                         <div className={styles.reservationContainer}>
                             {reservas.map((reserva) => (
                                 <div key={reserva.id} className={styles.roomCard}>

@@ -34,7 +34,7 @@ export class ReservaUseCase {
 
         const ususario = await this.usuarioUseCase.consultarPorId(novaReserva.getUsuario().getId());
 
-        const sala = await this.salaUseCase.consultarPorId(novaReserva.getId());
+        const sala = await this.salaUseCase.consultarPorId(novaReserva.getSala().getId());
 
         novaReserva.setUsuario(ususario);
         novaReserva.setSala(sala);
@@ -72,11 +72,14 @@ export class ReservaUseCase {
             throw new HttpException('Reserva não encontrada por id', HttpStatus.NOT_FOUND);
         }
 
+        reserva.dataHoraInicio.setHours(reserva.dataHoraInicio.getHours() - 3);
+        reserva.dataHoraTermino.setHours(reserva.dataHoraTermino.getHours() - 3);
+    
         return ReservaMapper.paraDomain(reserva);
     }
 
     async listarPorId(idUsuario: string): Promise<Array<Reserva>> {
-        let reservas;
+        let reservas: ReservaEntity[] = [];
 
         try {
             reservas = await this.repository.createQueryBuilder('reserva')

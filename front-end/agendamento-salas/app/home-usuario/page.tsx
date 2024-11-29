@@ -64,6 +64,11 @@ export default function Home() {
 
     }
 
+    const reservar = (id: string) => {
+        localStorage.setItem('id-sala', id);
+        router.push('/reserva-salas')
+    }
+
     return (
         <div className={styles.body}>
             <div className={styles.container}>
@@ -81,7 +86,7 @@ export default function Home() {
                                     >
                                         <div className={styles.elipse}><p>i</p></div>
                                     </button>
-                                    <button className={styles.reserveButton}>Reservar</button>
+                                    <button onClick={() => reservar(sala.id)} className={styles.reserveButton}>Reservar</button>
                                 </div>
                             </div>
                         ))}

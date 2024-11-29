@@ -51,7 +51,7 @@ export default function MudarSenha() {
           </div>
         </div>
         <p className={styles.instructions}>
-          Ao apertar o botão de redefinição, será enviado um e-mail onde será possível redefinir a senha
+          Ao apertar o botão de redefinição, a redifinição já ocorrerá
         </p>
         <button className={styles.resetButton} onClick={redefinirSenha}>
           Redefinir

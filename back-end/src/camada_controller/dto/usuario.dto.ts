@@ -1,5 +1,6 @@
 import { Put } from '@nestjs/common';
 import { TipoUsuario } from "src/camada_domain/tipoUsario";
+import { IsEnum } from 'class-validator';
 
 export class UsuarioDto {
 
@@ -21,5 +22,6 @@ export class UsuarioDto {
     nome: string;
     email: string;
     senha: string;
+    @IsEnum(['admin', 'user'])
     tipoUsuario: TipoUsuario;
 } 

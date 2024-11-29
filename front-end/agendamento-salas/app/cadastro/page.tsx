@@ -31,7 +31,7 @@ export default function Cadastro() {
       nome,
       email,
       senha,
-      tipoUsuario: '',
+      tipoUsuario: 'user',
     };
 
     try {
@@ -39,6 +39,8 @@ export default function Cadastro() {
       if(isAdmin) {
         dadosCadastro.tipoUsuario = 'admin'
       } 
+
+      console.log(dadosCadastro);
 
       const response = await axios.post('http://localhost:3001/usuarios', dadosCadastro);
 

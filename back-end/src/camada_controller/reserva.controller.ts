@@ -10,7 +10,9 @@ export class ReservaController {
 
     @Get('usuario/:id')
     async listarPorIdUsuario(@Param('id') idUsuario: string):Promise<Array<ReservaDto>> {
-        return ReservaMapper.paraDtos(await this.useCase.listarPorId(idUsuario));
+        const reservas = ReservaMapper.paraDtos(await this.useCase.listarPorId(idUsuario));
+        console.log(reservas);
+        return reservas;    
     }
 
     @Get(':id')
@@ -20,6 +22,7 @@ export class ReservaController {
 
     @Post()
     async cadastrar(@Body() novaReserva: ReservaDto):Promise<ReservaDto> {
+        console.log('Nova reserva: ' + novaReserva.dataHoraInicio + novaReserva.dataHoraTermino)
         return ReservaMapper.paraDto(await this.useCase.cadastrar(ReservaMapper.paraDomainDeDto(novaReserva)));
     }
 

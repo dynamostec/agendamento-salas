@@ -1,20 +1,21 @@
 /* Wrapper para centralizar tudo */
 .wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center; /* Centraliza os containers horizontalmente */
   align-items: center; /* Centraliza os containers verticalmente */
   height: 100vh; /* Ocupa 100% da altura da tela */
   background: linear-gradient(to right, #AAF1E3, #7ABACD); /* Gradiente de fundo */
 }
 
-/* Container principal */
 .container {
   display: flex;
-  justify-content: space-around; /* Garante que os itens dentro do container fiquem centralizados */
-  align-items: center; /* Alinha os itens ao centro */
-  gap: 20px; /* Espaço entre os containers */
+  flex-direction: row;
+  justify-content: space-around; 
+  align-items: center; 
+  gap: 20px; 
   padding: 20px;
-  max-width: 2500px;
+  width: 100vh;
 }
 
 /* Cada seção */
@@ -87,4 +88,10 @@
   margin-top: 10px;
   font-size: 0.9em;
   color: #555;
+}
+
+.section2 {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
 }
