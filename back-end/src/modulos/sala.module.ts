@@ -5,6 +5,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { SalaEntity } from "src/camada_entities/sala.entity";
 import { UsuarioUseCase } from "src/camada_use_case/usuario.usecase";
 import { UsuarioEntity } from "src/camada_entities/usuario.entity";
+import { ReservaUseCase } from "src/camada_use_case/reserva.usecase";
+import { ReservaEntity } from "src/camada_entities/reserva.entity";
 
 @Module({
     imports: [TypeOrmModule.forFeature([SalaEntity, UsuarioEntity])],

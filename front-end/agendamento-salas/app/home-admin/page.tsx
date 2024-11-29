@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Logo from '../image/dynamos.jpg';
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/home-admin.module.css';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
 interface Sala {
@@ -27,11 +27,11 @@ export default function Home() {
         if (idUsuario) {
             const fetchData = async () => {
                 try {
-                    await axios.get('http://localhost:3001/salas')
+                    await axios.get(`http://localhost:3001/salas/administrador/${idUsuario}`)
                         .then(response => {
                             setSalas(response.data);
                         });
-                    await axios.get(`http://localhost:3001/reservas/usuario/${idUsuario}`)
+                    await axios.get(`http://localhost:3001/reservas/administrador/${idUsuario}`)
                         .then(response => {
                             setReservas(response.data);
                         });
@@ -47,7 +47,7 @@ export default function Home() {
     const navigateToDetails = (id: string, type: 'sala' | 'reserva') => {
         if (type === 'sala') {
             localStorage.setItem('id-sala', id);
-            router.push('/detalhes-sala');
+            router.push('/detalhes-sala-admin');
         } else {
             localStorage.setItem('id-reserva', id);
             router.push('/detalhes-reserva');
@@ -58,11 +58,21 @@ export default function Home() {
         router.push('cadastro-sala');
     };
 
-    const reservar = (id: string) => {
-        localStorage.setItem('id-sala', id);
-        router.push('/reserva-salas')
-    }
+    const deletarSala = async (idSala: string) => {
 
+        axios.get(`http://localhost:3001/reservas/sala/${idSala}`)
+            .then(async response => {
+                if(Array.isArray(response.data) && response.data.length > 0) {
+                        alert('Você não pode deletar uma sala que está reservada');
+                } else {
+                    axios.delete(`http://localhost:3001/salas/${idSala}`)
+                        .then(() => {
+                            window.location.reload();
+                        });
+                }
+            });
+        
+    };
 
     return (
         <>
@@ -91,7 +101,7 @@ export default function Home() {
                                         >
                                             <div className={styles.elipse}><p>i</p></div>
                                         </button>
-                                        <button onClick={() => reservar(sala.id)} className={styles.reserveButton}>Reservar</button>
+                                        <button onClick={() => deletarSala(sala.id)} className={styles.reserveButton}>Deletar</button>
                                     </div>
                                 </div>
                             ))}

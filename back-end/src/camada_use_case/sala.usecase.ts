@@ -7,6 +7,7 @@ import { SalaEntity } from 'src/camada_entities/sala.entity';
 import { Repository } from 'typeorm';
 import { TipoUsuario } from 'src/camada_domain/tipoUsario';
 import { UsuarioMapper } from 'src/camada_mapper/usuario.mapper';
+import { ReservaUseCase } from './reserva.usecase';
 
 @Injectable()
 export class SalaUseCase {
@@ -19,12 +20,21 @@ export class SalaUseCase {
 
     async deletar(id: string) {
         this.consultarPorId(id);
+
         try {
             this.repository.delete(id);
         } catch (error) {
+            if (error.code === 'ER_ROW_IS_REFERENCED_2') {
+                throw new HttpException(
+                    'Não é possível deletar a sala porque há reservas relacionadas.',
+                    HttpStatus.BAD_REQUEST
+                );
+            }
             console.error(error.message);
             throw new HttpException('Erro ao deletar sala', HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+
     }
 
     async editar(novosDados: Sala, id: string): Promise<Sala> {
@@ -123,7 +133,7 @@ export class SalaUseCase {
             console.error(error.message);
             throw new HttpException('Erro ao listar salas', HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        
+
         return SalaMapper.paraDoamains(salas);
     }
 }

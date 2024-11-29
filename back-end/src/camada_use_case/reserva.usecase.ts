@@ -7,10 +7,12 @@ import { SalaUseCase } from "./sala.usecase";
 import { UsuarioUseCase } from "./usuario.usecase";
 import { ReservaMapper } from "src/camada_mapper/reserva.mapper";
 import { EmailUseCase } from "./email.usecase";
+import { Sala } from "src/camada_domain/sala";
 
 @Injectable()
 export class ReservaUseCase {
-
+    
+    
     constructor(
         @InjectRepository(ReservaEntity)
         private repository: Repository<ReservaEntity>,
@@ -18,6 +20,35 @@ export class ReservaUseCase {
         private usuarioUseCase: UsuarioUseCase,
         private emailUseCase: EmailUseCase
     ) { }
+
+    async consultarPorSala(id: string): Promise<Array<Reserva>> {
+        return ReservaMapper.paraDomains(await this.repository.createQueryBuilder('reserva')
+                .innerJoinAndSelect('reserva.usuario', 'usuario')
+                .innerJoinAndSelect('reserva.sala', 'sala')
+                .innerJoinAndSelect('sala.usuarioAdministrador', 'usuarioAdministrador')
+                .where('sala.id = :id', { id: id })
+                .getMany()
+        );
+    }
+
+    async listarPorSalaAdministrador(idAdmin: string): Promise<Reserva[]> {
+        const salas: Array<Sala> = await this.salaUseCase.consultarPorAdministrador(idAdmin);
+        let reservas: ReservaEntity[] = [];
+    
+        for (const sala of salas) {
+            const idSala = sala.id;
+            const novasReservas = await this.repository.createQueryBuilder('reserva')
+                .innerJoinAndSelect('reserva.usuario', 'usuario')
+                .innerJoinAndSelect('reserva.sala', 'sala')
+                .innerJoinAndSelect('sala.usuarioAdministrador', 'usuarioAdministrador')
+                .where('sala.id = :id', { id: idSala })
+                .getMany();
+            
+            reservas = reservas.concat(novasReservas); 
+        }
+    
+        return ReservaMapper.paraDomains(reservas);
+    }
 
     async deletar(id: string) {
         this.consultarPorId(id);

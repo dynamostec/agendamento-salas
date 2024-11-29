@@ -1,20 +1,24 @@
 .page {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(0.25turn, #AAF1E3, #7ABACD); /* Novo gradiente */
+  background: linear-gradient(0.25turn, #AAF1E3, #7ABACD);
+  /* Novo gradiente */
 }
 
 .container {
   width: 90%;
   margin: 0 auto;
-  padding: 120px 20px 20px; /* Espaço para o header fixo */
+  padding: 120px 20px 20px;
+  /* Espaço para o header fixo */
   border-radius: 10px;
 }
 
 .titulo {
-  font-size: 28px; /* Título maior */
+  font-size: 28px;
+  /* Título maior */
   font-weight: bold;
-  margin-bottom: 30px; /* Mais espaçamento abaixo do título */
+  margin-bottom: 30px;
+  /* Mais espaçamento abaixo do título */
   color: #333;
 }
 
@@ -24,29 +28,79 @@
   gap: 20px;
 }
 
-.infoBasica, .descricao {
+.infoBasica,
+.descricao {
   background: #fff;
-  padding: 30px; /* Mais espaço interno */
+  padding: 30px;
+  /* Mais espaço interno */
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Sombras levemente mais fortes */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  /* Sombras levemente mais fortes */
   flex: 1;
 }
 
 .infoBasica {
-  flex: 2; /* Painel branco maior */
+  flex: 2;
+  /* Painel branco maior */
 }
 
-.infoBasica p, .descricao p {
-  margin: 15px 0; /* Maior espaçamento entre linhas */
-  font-size: 18px; /* Tamanho maior para os textos */
-  color: #444; /* Cor levemente mais escura */
+.infoBasica p,
+.descricao p {
+  margin: 15px 0;
+  /* Maior espaçamento entre linhas */
+  font-size: 18px;
+  /* Tamanho maior para os textos */
+  color: #444;
+  /* Cor levemente mais escura */
 }
 
-.infoBasica p strong, .descricao strong {
-  font-size: 20px; /* Títulos dos campos maiores */
-  color: #333; /* Cor mais destacada */
+.infoBasica p strong,
+.descricao strong {
+  font-size: 20px;
+  /* Títulos dos campos maiores */
+  color: #333;
+  /* Cor mais destacada */
 }
 
 .descricao {
-  flex: 3; /* Descrição proporcionalmente maior */
+  flex: 3;
+  /* Descrição proporcionalmente maior */
+}
+
+.botoes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px
+}
+
+.botaoEdits {
+  background-color: #ffd54f;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #D9D9D9;
+  font-size: 15px;
+  color: #000000;
+}
+
+.textarea {
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #D9D9D9;
+  font-size: 15px;
+  color: #000000;
+  resize: none;
+  overflow: auto;
+  height: 250px;
+  width: 100vh;
 }

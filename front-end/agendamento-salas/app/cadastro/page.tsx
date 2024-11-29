@@ -55,7 +55,6 @@ export default function Cadastro() {
     }
   };
 
-  // Função para limpar os campos do formulário
   const limparFormulario = () => {
     setNome('');
     setEmail('');

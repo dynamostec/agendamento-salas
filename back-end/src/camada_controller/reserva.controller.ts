@@ -20,6 +20,16 @@ export class ReservaController {
         return ReservaMapper.paraDto(await this.useCase.consultarPorId(id));
     }
 
+    @Get('administrador/:id')
+    async listarPorSalaAdministrador(@Param('id') idAdmin: string):Promise<Array<ReservaDto>> {
+        return ReservaMapper.paraDtos(await this.useCase.listarPorSalaAdministrador(idAdmin));
+    }
+
+    @Get('sala/:id')
+    async listarPorSala(@Param('id') idSala: string):Promise<Array<ReservaDto>> {
+        return ReservaMapper.paraDtos(await this.useCase.consultarPorSala(idSala));
+    }
+
     @Post()
     async cadastrar(@Body() novaReserva: ReservaDto):Promise<ReservaDto> {
         console.log('Nova reserva: ' + novaReserva.dataHoraInicio + novaReserva.dataHoraTermino)
