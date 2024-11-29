@@ -41,11 +41,13 @@
   }
   
   .inputWrapper {
-    display: flex;
+    display: flex; 
     align-items: center;
     background-color: #e0e0e0;
     border-radius: 30px;
     padding: 5px 15px;
+    margin-bottom: 15px; 
+    flex-direction: row; 
   }
   
   .icon {
@@ -62,6 +64,10 @@
     font-size: 14px;
     color: #3a3a3a;
     width: 100%;
+  }
+
+  .inputGroup label {
+    margin-top: 10px; 
   }
   
   .instructions {
