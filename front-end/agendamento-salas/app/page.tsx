@@ -12,7 +12,7 @@ export default function HomePage() {
   };
 
   const handleCadastroRedirect = () => {
-    router.push('/detalhes-reserva');
+    router.push('/reserva-salas');
   };
 
   return (
