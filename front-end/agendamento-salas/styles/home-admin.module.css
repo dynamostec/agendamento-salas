@@ -100,6 +100,47 @@
     background-color: #e57373;
 }
 
+.all {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: 100px !important; 
+    background: linear-gradient(90deg, #7ABACD, #AAF1E3) !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    position: fixed !important;
+}
+
+.logo {
+    width: 80px !important;
+    height: 60px !important;
+    border-radius: 5px !important;
+}
+
+.reserveButton {
+    background-color: #ffd54f !important;
+    border: none !important;
+    border-radius: 20px !important;
+    padding: 5px 10px !important;
+    color: #333 !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s !important;
+}
+
+.reserveButton:hover {
+    background-color: #ffca28 !important;
+}
+
+.continerButtons {
+    display: flex !important;
+    flex-direction: row !important;
+}
+
 .elipse {
     height: 25px !important;
     width: 25px !important;

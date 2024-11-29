@@ -18,23 +18,3 @@
     height: 60px;
     border-radius: 5px;
 }
-
-.reserveButton {
-    background-color: #ffd54f;
-    border: none;
-    border-radius: 20px;
-    padding: 5px 10px;
-    color: #333;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.reserveButton:hover {
-    background-color: #ffca28;
-}
-
-.continerButtons {
-    display: flex;
-    flex-direction: row;
-}

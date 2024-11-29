@@ -51,7 +51,17 @@ export default function CadastroSalas() {
             axios.post('http://localhost:3001/salas', dadosCadastrosSalas)
             .then(response => {
                 console.log('Cadastro de sala bem sucedido');
-                router.push('/home');
+
+                const typeHome = localStorage.getItem('type-home');
+
+                if(typeHome) {
+                    if(typeHome === 'admin') {
+                        router.push('/home-admin');
+                    } else {
+                        router.push('/home-user');
+                    }
+                }
+
             })
 
             limparFormulario();

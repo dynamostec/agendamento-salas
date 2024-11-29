@@ -15,11 +15,9 @@ export default function Login() {
     router.push('mudar-senha');
   }
 
-  // Função chamada ao enviar o formulário
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Exemplo de validação básica
     if (email === '' || senha === '') {
       setMensagemErro('Por favor, preencha todos os campos.');
       return;
@@ -30,24 +28,30 @@ export default function Login() {
       senha
     };
 
-    // console.log(dadosLogin);
-
     limparFormulario();
 
-    axios.post('http://localhost:3001/login', dadosLogin)
+    await axios.post('http://localhost:3001/login', dadosLogin)
       .then(response => {
+        axios.get(`http://localhost:3001/usuarios/email/${dadosLogin.email}`)
+          .then(response => {
+            if (response) {
+              localStorage.setItem('id-usuario', response.data.id);
+              
+              if(response.data.tipoUsuario === 'admin') {
+                localStorage.setItem('type-home', 'admin');
+                router.push('/home-admin');
+              } else {
+                localStorage.setItem('type-home', 'user');
+                router.push('/home-usuario');
+              }
+            }
+
+          })
         console.log("Login bem-sucedido");
-        router.push('/home');
         limparFormulario();
       })
 
-    axios.get(`http://localhost:3001/usuarios/email/${dadosLogin.email}`)
-      .then(response => {
-        if(response) {
-          console.log(response.data);
-          localStorage.setItem('id-usuario', response.data.id);
-        }
-      })
+
   };
 
   const limparFormulario = () => {
